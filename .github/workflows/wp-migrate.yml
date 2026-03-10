@@ -9,7 +9,7 @@ on:
         required: false
         default: '1'
       status:
-        description: 'Post status to migrate (e.g., publish, draft, any, pending, private)'
+        description: 'Which posts to migrate (e.g., publish, draft, any, pending, private)'
         required: false
         default: 'publish'
 
@@ -85,7 +85,8 @@ jobs:
       # Upload the state so the next run knows what has already been migrated
       - name: Upload Migration State
         uses: actions/upload-artifact@v4
-        if: always() # Upload even if the script fails partway through
+        # Upload even if the script fails partway through
+        if: always() 
         with:
           name: migration-state
           path: ./wordpress/migration_state.json
