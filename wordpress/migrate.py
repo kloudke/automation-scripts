@@ -300,7 +300,12 @@ def migrate_posts(limit=None):
     """Migrates posts sequentially"""
     logger.info("--- Migrating Posts ---")
     
-    params = {'per_page': 10, 'page': 1, 'orderby': 'date', 'order': 'asc'}
+    params = {
+        'per_page': 10, 
+        'page': 1, 
+        'orderby': 'date', 
+        'order': 'desc'
+    }
     migrated_count = 0
     
     while True:
