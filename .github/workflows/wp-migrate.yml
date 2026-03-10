@@ -7,7 +7,7 @@ on:
       limit:
         description: 'Number of posts to migrate per run (leave blank for all)'
         required: false
-        default: '5'
+        default: '1'
 
 jobs:
   migrate-articles:
