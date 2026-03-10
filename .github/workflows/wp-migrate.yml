@@ -11,7 +11,7 @@ on:
       status:
         description: 'Post status to migrate (e.g., publish, draft, any, pending, private)'
         required: false
-        default: 'publish'
+        default: 'private'
       dry_run:
         description: 'Check connectivity to source and dest without migrating'
         type: boolean
