@@ -9,9 +9,14 @@ on:
         required: false
         default: '1'
       status:
-        description: 'Which posts to migrate (e.g., publish, draft, any, pending, private)'
+        description: 'Post status to migrate (e.g., publish, draft, any, pending, private)'
         required: false
-        default: 'private'
+        default: 'publish'
+      dry_run:
+        description: 'Check connectivity to source and dest without migrating'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   migrate-articles:
@@ -58,6 +63,9 @@ jobs:
           fi
           if [ -n "${{ github.event.inputs.status }}" ]; then
             CMD="$CMD --status ${{ github.event.inputs.status }}"
+          fi
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            CMD="$CMD --dry-run"
           fi
           $CMD
           
