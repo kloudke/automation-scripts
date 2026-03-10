@@ -8,6 +8,10 @@ on:
         description: 'Number of posts to migrate per run (leave blank for all)'
         required: false
         default: '1'
+      status:
+        description: 'Post status to migrate (e.g., publish, draft, any, pending, private)'
+        required: false
+        default: 'publish'
 
 jobs:
   migrate-articles:
@@ -48,11 +52,14 @@ jobs:
           DEST_WP_USER: ${{ secrets.DEST_WP_USER }}
           DEST_WP_APP_PASSWORD: ${{ secrets.DEST_WP_APP_PASSWORD }}
         run: |
+          CMD="python main.py"
           if [ -n "${{ github.event.inputs.limit }}" ]; then
-            python main.py --limit ${{ github.event.inputs.limit }}
-          else
-            python main.py
+            CMD="$CMD --limit ${{ github.event.inputs.limit }}"
           fi
+          if [ -n "${{ github.event.inputs.status }}" ]; then
+            CMD="$CMD --status ${{ github.event.inputs.status }}"
+          fi
+          $CMD
           
       - name: Run De-indexing Script
         working-directory: ./wordpress
