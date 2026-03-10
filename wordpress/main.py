@@ -296,7 +296,7 @@ def process_content_images(content):
     return str(soup)
 
 
-def migrate_posts(limit=None):
+def migrate_posts(limit=None, status="publish"):
     """Migrates posts sequentially"""
     logger.info("--- Migrating Posts ---")
     
@@ -304,7 +304,8 @@ def migrate_posts(limit=None):
         'per_page': 10, 
         'page': 1, 
         'orderby': 'date', 
-        'order': 'desc'
+        'order': 'desc',
+        'status': status
     }
     migrated_count = 0
     
@@ -406,6 +407,7 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Migrate WordPress Articles")
     parser.add_argument("--limit", type=int, default=None, help="Number of posts to migrate limit")
+    parser.add_argument("--status", type=str, default="publish", help="Post status to migrate (publish, draft, any, etc)")
     args = parser.parse_args()
 
     if not source_client or not dest_client:
@@ -419,7 +421,7 @@ def main():
     migrate_terms("tags")
     migrate_users()
     
-    migrate_posts(limit=args.limit)
+    migrate_posts(limit=args.limit, status=args.status)
     
     logger.info("Migration Run Completed.")
 
