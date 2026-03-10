@@ -403,15 +403,44 @@ def migrate_posts(limit=None, status="publish"):
             
         params['page'] += 1
 
+def test_connection():
+    """Tests the connection to both Source and Destination sites."""
+    logger.info("--- Testing Connections ---")
+    
+    # Test Source
+    logger.info(f"Connecting to Source: {SOURCE_URL}")
+    src_resp = source_client.get("users/me")
+    if src_resp and src_resp.status_code == 200:
+        logger.info(f"✅ Source Connection Successful. Authenticated as: {src_resp.json().get('name')}")
+    else:
+        logger.error("❌ Failed to authenticate with Source.")
+        return False
+        
+    # Test Destination
+    logger.info(f"Connecting to Destination: {DEST_URL}")
+    dest_resp = dest_client.get("users/me")
+    if dest_resp and dest_resp.status_code == 200:
+        logger.info(f"✅ Destination Connection Successful. Authenticated as: {dest_resp.json().get('name')}")
+    else:
+        logger.error("❌ Failed to authenticate with Destination.")
+        return False
+        
+    return True
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Migrate WordPress Articles")
     parser.add_argument("--limit", type=int, default=None, help="Number of posts to migrate limit")
     parser.add_argument("--status", type=str, default="publish", help="Post status to migrate (publish, draft, any, etc)")
+    parser.add_argument("--dry-run", action="store_true", help="Test site connections without migrating")
     args = parser.parse_args()
 
     if not source_client or not dest_client:
         logger.error("Clients not initialized. Cannot proceed.")
+        return
+    if args.dry_run:
+        test_connection()
+        logger.info("Dry run connection test complete. Exiting.")
         return
         
     logger.info("Starting Migration Process...")
