@@ -49,9 +49,9 @@ jobs:
           DEST_WP_APP_PASSWORD: ${{ secrets.DEST_WP_APP_PASSWORD }}
         run: |
           if [ -n "${{ github.event.inputs.limit }}" ]; then
-            python migrate.py --limit ${{ github.event.inputs.limit }}
+            python main.py --limit ${{ github.event.inputs.limit }}
           else
-            python migrate.py
+            python main.py
           fi
           
       # Upload the state so the next run knows what has already been migrated
