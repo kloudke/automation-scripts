@@ -54,6 +54,27 @@ jobs:
             python main.py
           fi
           
+      - name: Run De-indexing Script
+        working-directory: ./wordpress
+        if: success()
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: |
+          if [ -n "$GOOGLE_APPLICATION_CREDENTIALS_JSON" ]; then
+            echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google_creds.json
+            export GOOGLE_APPLICATION_CREDENTIALS="google_creds.json"
+          else
+            echo "Warning: GOOGLE_CREDENTIALS secret is not set!"
+          fi
+          
+          if [ -f "migrated_urls.txt" ]; then
+            python deindex.py
+          else
+            echo "No URLs migrated, skipping de-indexing."
+          fi
+          
+          rm -f google_creds.json
+
       # Upload the state so the next run knows what has already been migrated
       - name: Upload Migration State
         uses: actions/upload-artifact@v4
