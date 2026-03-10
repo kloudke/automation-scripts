@@ -42,3 +42,25 @@ To use the automated workflow, configure the following **Repository Secrets** wi
 
 - After every run, the workflow uploads a `migration-state` artifact containing `migration_state.json`.
 - The workflow automatically downloads the latest state artifact at the beginning of its next run, ensuring no duplicates are created.
+
+## Google Search Indexing Removal
+
+Before this will run successfully in your GitHub Actions pipeline, you need to set up the credentials:
+
+#### Google Cloud Platform:
+
+1. Go to your GCP console, create a project (or select an existing one), and enable the Web Search Indexing API.
+2. Create a Service Account and generate a JSON Key. Download this file.
+
+#### Google Search Console:
+
+1. Go to Google Search Console for your source website.
+2. Add the email address of the Service Account you just created and grant it Owner permissions. This is required for the Indexing API to accept requests for your domain.
+
+#### GitHub Secrets:
+
+1. Go to your GitHub repository -> Settings -> Secrets and variables -> Actions.
+2. Create a new repository secret named GOOGLE_CREDENTIALS.
+3. Paste the entire contents of the JSON Key file you downloaded from GCP into the secret value.
+
+Once you have done these 3 steps, the workflow will automatically de-index newly migrated posts the next time it runs!
