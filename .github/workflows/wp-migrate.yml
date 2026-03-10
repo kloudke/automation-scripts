@@ -11,7 +11,7 @@ on:
       status:
         description: 'Which posts to migrate (e.g., publish, draft, any, pending, private)'
         required: false
-        default: 'publish'
+        default: 'private'
 
 jobs:
   migrate-articles:
