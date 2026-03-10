@@ -378,6 +378,13 @@ def migrate_posts(limit=None):
                 logger.info(f"Successfully migrated post {source_id} -> {dest_post_resp.json()['id']}")
                 state['posts'].append(source_id)
                 save_state()
+                
+                # Save original URL for de-indexing
+                old_url = post.get('link')
+                if old_url:
+                    with open("migrated_urls.txt", "a") as f:
+                        f.write(old_url + "\n")
+                        
                 migrated_count += 1
                 
                 if limit and migrated_count >= limit:
