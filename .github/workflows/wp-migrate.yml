@@ -56,15 +56,18 @@ jobs:
           DEST_WP_URL: ${{ secrets.DEST_WP_URL }}
           DEST_WP_USER: ${{ secrets.DEST_WP_USER }}
           DEST_WP_APP_PASSWORD: ${{ secrets.DEST_WP_APP_PASSWORD }}
+          INPUT_LIMIT: ${{ inputs.limit }}
+          INPUT_STATUS: ${{ inputs.status }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
         run: |
           CMD="python main.py"
-          if [ -n "${{ github.event.inputs.limit }}" ]; then
-            CMD="$CMD --limit ${{ github.event.inputs.limit }}"
+          if [ -n "$INPUT_LIMIT" ]; then
+            CMD="$CMD --limit $INPUT_LIMIT"
           fi
-          if [ -n "${{ github.event.inputs.status }}" ]; then
-            CMD="$CMD --status ${{ github.event.inputs.status }}"
+          if [ -n "$INPUT_STATUS" ]; then
+            CMD="$CMD --status $INPUT_STATUS"
           fi
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ] || [ "${{ github.event.inputs.dry_run }}" = "True" ]; then
+          if [ "$INPUT_DRY_RUN" = "true" ] || [ "$INPUT_DRY_RUN" = "True" ]; then
             CMD="$CMD --dry-run"
           fi
           $CMD
