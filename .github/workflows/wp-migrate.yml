@@ -16,7 +16,7 @@ on:
         description: 'Check connectivity to source and dest without migrating'
         type: boolean
         required: false
-        default: false
+        default: true
 
 jobs:
   migrate-articles:
