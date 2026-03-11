@@ -67,7 +67,7 @@ jobs:
           if [ -n "$INPUT_STATUS" ]; then
             CMD="$CMD --status $INPUT_STATUS"
           fi
-          if [ "$INPUT_DRY_RUN" = "true" ] || [ "$INPUT_DRY_RUN" = "True" ]; then
+          if [ "$INPUT_DRY_RUN" = "true" ] || [ "$INPUT_DRY_RUN" = "True" ] || [ "${{ github.event_name }}" = "push" ]; then
             CMD="$CMD --dry-run"
           fi
           $CMD
