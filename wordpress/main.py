@@ -113,13 +113,8 @@ class WPClient:
         return all_results
 
 # Initialize clients lazily or globally
-try:
-    source_client = WPClient(SOURCE_URL, SOURCE_USER, SOURCE_PASS)
-    dest_client = WPClient(DEST_URL, DEST_USER, DEST_PASS)
-except Exception as e:
-    source_client = None
-    dest_client = None
-
+source_client = None
+dest_client = None
 
 # --- Migration Functions ---
 
@@ -437,9 +432,17 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Test site connections without migrating")
     args = parser.parse_args()
 
+    global source_client, dest_client
+    try:
+        source_client = WPClient(SOURCE_URL, SOURCE_USER, SOURCE_PASS)
+        dest_client = WPClient(DEST_URL, DEST_USER, DEST_PASS)
+    except Exception as e:
+        logger.error(f"Failed to initialize clients: {e}")
+
     if not source_client or not dest_client:
         logger.error("Clients not initialized. Cannot proceed.")
         return
+        
     if args.dry_run:
         test_connection()
         logger.info("Dry run connection test complete. Exiting.")
