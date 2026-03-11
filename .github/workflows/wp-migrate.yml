@@ -1,7 +1,7 @@
 name: WordPress Migration
 
 on:
-  push:
+  #push:
   workflow_dispatch:
     inputs:
       limit:
@@ -64,7 +64,7 @@ jobs:
           if [ -n "${{ github.event.inputs.status }}" ]; then
             CMD="$CMD --status ${{ github.event.inputs.status }}"
           fi
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ] || [ "${{ github.event.inputs.dry_run }}" = "True" ]; then
             CMD="$CMD --dry-run"
           fi
           $CMD

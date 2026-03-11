@@ -293,7 +293,7 @@ def process_content_images(content):
     return str(soup)
 
 
-def migrate_posts(limit=None, status="publish"):
+def migrate_posts(limit=None, status="private"):
     """Migrates posts sequentially"""
     logger.info("--- Migrating Posts ---")
     
@@ -406,21 +406,33 @@ def test_connection():
     
     # Test Source
     logger.info(f"Connecting to Source: {SOURCE_URL}")
-    src_resp = source_client.get("users/me")
-    if src_resp and src_resp.status_code == 200:
-        logger.info(f"✅ Source Connection Successful. Authenticated as: {src_resp.json().get('name')}")
+    if not source_client:
+        logger.error("❌ Source client not initialized. Cannot test connection.")
+        src_success = False
     else:
-        logger.error("❌ Failed to authenticate with Source.")
-        return False
-        
+        src_resp = source_client.get("users/me")
+        if src_resp and src_resp.status_code == 200:
+            logger.info(f"✅ Source Connection Successful. Authenticated as: {src_resp.json().get('name')}")
+            src_success = True
+        else:
+            logger.error("❌ Failed to authenticate with Source.")
+            src_success = False
+            
     # Test Destination
     logger.info(f"Connecting to Destination: {DEST_URL}")
-    dest_resp = dest_client.get("users/me")
-    if dest_resp and dest_resp.status_code == 200:
-        logger.info(f"✅ Destination Connection Successful. Authenticated as: {dest_resp.json().get('name')}")
+    if not dest_client:
+        logger.error("❌ Destination client not initialized. Cannot test connection.")
+        dest_success = False
     else:
-        logger.error("❌ Failed to authenticate with Destination.")
-        return False
+        dest_resp = dest_client.get("users/me")
+        if dest_resp and dest_resp.status_code == 200:
+            logger.info(f"✅ Destination Connection Successful. Authenticated as: {dest_resp.json().get('name')}")
+            dest_success = True
+        else:
+            logger.error("❌ Failed to authenticate with Destination.")
+            dest_success = False
+            
+    return src_success and dest_success
         
     return True
 
@@ -439,13 +451,13 @@ def main():
     except Exception as e:
         logger.error(f"Failed to initialize clients: {e}")
 
-    if not source_client or not dest_client:
-        logger.error("Clients not initialized. Cannot proceed.")
-        return
-        
     if args.dry_run:
         test_connection()
         logger.info("Dry run connection test complete. Exiting.")
+        return
+
+    if not source_client or not dest_client:
+        logger.error("Clients not initialized. Cannot proceed.")
         return
         
     logger.info("Starting Migration Process...")
