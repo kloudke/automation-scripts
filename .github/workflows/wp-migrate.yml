@@ -19,7 +19,7 @@ on:
         default: true
 
 jobs:
-  migrate-articles:
+  migrate-posts:
     runs-on:
       group: kloudke
     
