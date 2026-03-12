@@ -124,10 +124,24 @@ def migrate_terms(taxonomy="categories"):
     source_terms = source_client.get_all(taxonomy)
     logger.info(f"Found {len(source_terms)} {taxonomy} on source.")
 
+    # Pre-fetch existing terms from Destination to avoid redundant POSTs and 400 errors
+    logger.info(f"Checking existing {taxonomy} on destination...")
+    dest_terms = dest_client.get_all(taxonomy)
+    dest_terms_by_slug = {t['slug']: t['id'] for t in dest_terms}
+    logger.info(f"Found {len(dest_terms)} existing {taxonomy} on destination.")
+
     for term in source_terms:
         source_id = str(term['id'])
         if source_id in state[taxonomy]:
             logger.debug(f"Skipping term '{term['name']}' (already migrated)")
+            continue
+            
+        # Check if identical term already exists on the destination
+        if term['slug'] in dest_terms_by_slug:
+            existing_dest_id = dest_terms_by_slug[term['slug']]
+            state[taxonomy][source_id] = existing_dest_id
+            logger.info(f"Mapped existing {taxonomy}: {term['name']} -> ID {existing_dest_id}")
+            save_state()
             continue
 
         payload = {
@@ -149,19 +163,10 @@ def migrate_terms(taxonomy="categories"):
         if response and response.status_code == 201:
             dest_term = response.json()
             state[taxonomy][source_id] = dest_term['id']
+            # Re-update our in-memory map in case children need to reference it immediately
+            dest_terms_by_slug[term['slug']] = dest_term['id']
             logger.info(f"Created {taxonomy}: {term['name']} -> {dest_term['id']}")
             save_state()
-        elif response and response.status_code == 400 and 'term_exists' in response.text:
-            # Term already exists, let's try to find its ID
-            existing_response = dest_client.get(taxonomy, params={"search": term['name']})
-            if existing_response and existing_response.json():
-                # Get the exact match
-                for ext_term in existing_response.json():
-                    if ext_term['slug'] == term['slug']:
-                        state[taxonomy][source_id] = ext_term['id']
-                        logger.info(f"Mapped existing {taxonomy}: {term['name']} -> {ext_term['id']}")
-                        save_state()
-                        break
         else:
             logger.error(f"Failed to create {taxonomy}: {term['name']}")
 
@@ -171,18 +176,22 @@ def migrate_users():
     source_users = source_client.get_all("users")
     logger.info(f"Found {len(source_users)} users on source.")
 
+    # Pre-fetch existing users on Destination
+    logger.info("Checking existing users on destination...")
+    dest_users = dest_client.get_all("users")
+    dest_users_by_slug = {u['slug']: u['id'] for u in dest_users}
+    logger.info(f"Found {len(dest_users)} existing users on destination.")
+
     for user in source_users:
         source_id = str(user['id'])
         if source_id in state['users']:
             continue
             
-        # Try to find user by email or slug on destination first
-        # REST API doesn't expose email by default to non-admins sometimes, but we are admin
-        dest_users_response = dest_client.get("users", params={"search": user['slug']})
-        if dest_users_response and dest_users_response.json():
-            existing_user = dest_users_response.json()[0]
-            state['users'][source_id] = existing_user['id']
-            logger.info(f"Mapped existing user: {user['slug']} -> {existing_user['id']}")
+        # Check if identical user already exists on the destination
+        if user['slug'] in dest_users_by_slug:
+            existing_dest_id = dest_users_by_slug[user['slug']]
+            state['users'][source_id] = existing_dest_id
+            logger.info(f"Mapped existing user: {user['slug']} -> ID {existing_dest_id}")
             save_state()
             continue
 
@@ -200,6 +209,7 @@ def migrate_users():
         if response and response.status_code == 201:
             dest_user = response.json()
             state['users'][source_id] = dest_user['id']
+            dest_users_by_slug[user['slug']] = dest_user['id']
             logger.info(f"Created user: {user['slug']} -> {dest_user['id']}")
             save_state()
         else:
