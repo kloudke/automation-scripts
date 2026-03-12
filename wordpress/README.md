@@ -64,10 +64,3 @@ Before this will run successfully in your GitHub Actions pipeline, you need to s
 3. Paste the entire contents of the JSON Key file you downloaded from GCP into the secret value.
 
 Once you have done these 3 steps, the workflow will automatically de-index newly migrated posts the next time it runs!
-
-### Improvements
-
-- Before migrating categories, check if they already exist on the destination site. If they do, use the existing category instead of creating a new one.
-- Before migrating tags, check if they already exist on the destination site. If they do, use the existing tag instead of creating a new one.
-- Before migrating authors, check if they already exist on the destination site. If they do, use the existing author instead of creating a new one.
-- Enable migration based on the category also, say the user wants to migrate only posts that are under `Databases` category.
