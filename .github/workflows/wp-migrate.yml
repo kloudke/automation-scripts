@@ -5,18 +5,18 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        description: 'Number of posts to migrate per run (leave blank for all)'
+        description: 'Number of posts to migrate per run (leave blank for all):'
         required: false
-        default: '1'
+        default: '2'
       status:
-        description: 'Post status to migrate (e.g., publish, draft, any, pending, private)'
+        description: 'Post status to migrate (e.g., publish, draft, any, pending, private):'
         required: false
         default: 'private'
       dry_run:
-        description: 'Check connectivity to source and dest without migrating'
+        description: 'Dry run to check connectivity to source and destination:'
         type: boolean
         required: false
-        default: true
+        default: false
 
 jobs:
   migrate-posts:
