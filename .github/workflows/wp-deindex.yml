@@ -1,0 +1,63 @@
+name: De-index Migrated URLs
+
+on:
+  workflow_run:
+    workflows: ["WordPress Migration"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deindex:
+    # Only run automatically if the migration workflow was successful, or if triggered manually
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    runs-on:
+      group: kloudke
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # Required to download artifacts from a different workflow run
+      - name: Download Migrated URLs Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: migrated-urls
+          path: ./wordpress/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+        continue-on-error: true # Might not exist if no posts were actually migrated in that run
+          
+      - name: Install Dependencies
+        working-directory: ./wordpress
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Run De-indexing Script
+        working-directory: ./wordpress
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: |
+          if [ -n "$GOOGLE_APPLICATION_CREDENTIALS_JSON" ]; then
+            echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > google_creds.json
+            export GOOGLE_APPLICATION_CREDENTIALS="google_creds.json"
+          else
+            echo "Warning: GOOGLE_CREDENTIALS secret is not set!"
+          fi
+          
+          if [ -f "migrated_urls.txt" ]; then
+            python deindex.py
+            # Cleanup so we don't accidentally re-process on future manual runs
+            rm migrated_urls.txt
+          else
+            echo "No URLs migrated, skipping de-indexing."
+          fi
+          
+          rm -f google_creds.json
