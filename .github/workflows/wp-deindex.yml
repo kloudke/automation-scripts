@@ -1,4 +1,4 @@
-name: De-index Migrated URLs
+name: Delisting Posts URLs
 
 on:
   workflow_run:
