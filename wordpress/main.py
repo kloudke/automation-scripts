@@ -303,7 +303,7 @@ def process_content_images(content):
     return str(soup)
 
 
-def migrate_posts(limit=None, status="publish"):
+def migrate_posts(limit=None, status="published"):
     """Migrates posts sequentially"""
     logger.info("--- Migrating Posts ---")
     
