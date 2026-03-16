@@ -395,9 +395,9 @@ def migrate_posts(limit=None, status="publish"):
                 state['posts'].append(source_id)
                 save_state()
                 
-                # Save original URL for de-indexing
+                # Save original URL for de-indexing ONLY if the post was published
                 old_url = post.get('link')
-                if old_url:
+                if old_url and post.get('status') == 'publish':
                     with open("migrated_urls.txt", "a") as f:
                         f.write(old_url + "\n")
                         
