@@ -1,16 +1,15 @@
 name: Delisting Migrated Posts
 
 on:
-  workflow_run:
-    workflows: ["WordPress Migration"]
-    types:
-      - completed
   workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'The Run ID of the matching WordPress Migration workflow'
+        required: true
+        type: string
 
 jobs:
   deindex:
-    # Only run automatically if the migration workflow was successful, or if triggered manually
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on:
       group: kloudke
     
@@ -31,8 +30,8 @@ jobs:
           name: migrated-urls
           path: ./wordpress/
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          run-id: ${{ github.event.workflow_run.id }}
-        continue-on-error: true # Might not exist if no posts were actually migrated in that run
+          run-id: ${{ inputs.run_id }}
+        continue-on-error: true
           
       - name: Install Dependencies
         working-directory: ./wordpress
