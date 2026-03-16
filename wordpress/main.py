@@ -3,6 +3,7 @@ import os
 import json
 import logging
 import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urljoin
 from requests.auth import HTTPBasicAuth
@@ -60,7 +61,14 @@ class WPClient:
     def __init__(self, url, username, password):
         self.base_url = f"{url}/wp-json/wp/v2"
         self.auth = HTTPBasicAuth(username, password)
-        self.session = requests.Session()
+        # Create a Cloudflare-bypassing scraper session
+        self.session = cloudscraper.create_scraper(
+            browser={
+                'browser': 'chrome',
+                'platform': 'windows',
+                'desktop': True
+            }
+        )
         self.session.auth = self.auth
         self.session.headers.update({
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
