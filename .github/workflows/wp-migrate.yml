@@ -7,7 +7,7 @@ on:
       limit:
         description: 'Number of posts to migrate per run (leave blank for all):'
         required: false
-        default: '2'
+        default: ''
       status:
         description: 'Post status to migrate (e.g. publish, draft, pending, private):'
         required: false
