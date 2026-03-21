@@ -377,14 +377,19 @@ def migrate_posts(limit=None, status=""):
                     if uploaded_media:
                         dest_featured_media_id = uploaded_media['id']
 
+            # Extract raw content to preserve Gutenberg blocks, falling back to rendered if raw is unavailable
+            content_raw = post.get('content', {}).get('raw', post['content'].get('rendered', ''))
+            excerpt_raw = post.get('excerpt', {}).get('raw', post['excerpt'].get('rendered', ''))
+            title_raw = post.get('title', {}).get('raw', post['title'].get('rendered', ''))
+
             # 4. Process Content (Rewrite inline image URLs)
-            processed_content = process_content_images(post['content']['rendered'])
+            processed_content = process_content_images(content_raw)
             
             # 5. Build Payload
             payload = {
-                "title": post['title']['rendered'],
+                "title": title_raw,
                 "content": processed_content,
-                "excerpt": post['excerpt']['rendered'],
+                "excerpt": excerpt_raw,
                 "status": post['status'], # Keep original publish status
                 "date": post['date'],     # Keep original date
                 "author": dest_author_id,
