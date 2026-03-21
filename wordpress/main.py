@@ -207,7 +207,10 @@ def migrate_users():
         # Create user (Requires secure password, WP usually emails them)
         payload = {
             "username": user.get('username') or user['slug'],
-            "name": user['name'],
+            "name": user.get('name', ''),
+            "first_name": user.get('first_name', ''),
+            "last_name": user.get('last_name', ''),
+            "nickname": user.get('nickname', ''),
             "email": user.get('email') or f"{user['slug']}@placeholder.domain",
             "password": secrets.token_urlsafe(20)
         }
