@@ -316,12 +316,13 @@ def process_content_images(content):
     return str(soup)
 
 
-def migrate_posts(limit=None, status="publish"):
+def migrate_posts(limit=None, status=""):
     """Migrates posts sequentially"""
     logger.info("--- Migrating Posts ---")
     
+    # If empty, default to fetching ALL posts regardless of status
     if not status or not str(status).strip():
-        status = "publish"
+        status = "publish,draft,pending,private"
 
     params = {
         'per_page': 10, 
@@ -467,7 +468,7 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Migrate WordPress Articles")
     parser.add_argument("--limit", type=int, default=None, help="Number of posts to migrate limit")
-    parser.add_argument("--status", type=str, default="publish", help="Post status to migrate (publish, draft, any, etc)")
+    parser.add_argument("--status", type=str, default="", help="Post status to migrate (publish, draft, any, etc)")
     parser.add_argument("--dry-run", action="store_true", help="Test site connections without migrating")
     args = parser.parse_args()
 
