@@ -41,7 +41,7 @@ jobs:
           
       # Download previous state if it exists to pick up where we left off
       - name: Download Migration State
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v4
         with:
           name: migration-state
           path: ./wordpress/
