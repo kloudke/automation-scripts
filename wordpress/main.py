@@ -182,7 +182,7 @@ def migrate_terms(taxonomy="categories"):
 def migrate_users():
     """Migrates users/authors."""
     logger.info("--- Migrating Users ---")
-    source_users = source_client.get_all("users")
+    source_users = source_client.get_all("users", params={'context': 'edit'})
     logger.info(f"Found {len(source_users)} users on source.")
 
     # Pre-fetch existing users on Destination
@@ -206,14 +206,14 @@ def migrate_users():
 
         # Create user (Requires secure password, WP usually emails them)
         payload = {
-            "username": user['slug'],
+            "username": user.get('username') or user['slug'],
             "name": user['name'],
-            "email": f"{user['slug']}@placeholder.domain", # If email is missing in API response
+            "email": user.get('email') or f"{user['slug']}@placeholder.domain",
             "password": secrets.token_urlsafe(20)
         }
         
-        if 'email' in user:
-             payload['email'] = user['email']
+        if 'roles' in user:
+             payload['roles'] = user['roles']
 
         response = dest_client.post("users", json=payload)
         if response and response.status_code == 201:
