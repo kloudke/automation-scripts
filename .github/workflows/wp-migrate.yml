@@ -41,10 +41,13 @@ jobs:
           
       # Download previous state if it exists to pick up where we left off
       - name: Download Migration State
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: wp-migrate.yml
           name: migration-state
           path: ./wordpress/
+          if_no_artifact_found: warn
         continue-on-error: true # It will fail on the first run, which is fine
           
       - name: Run Migration Script
