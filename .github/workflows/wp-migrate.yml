@@ -9,9 +9,9 @@ on:
         required: false
         default: '2'
       status:
-        description: 'Post status to migrate (e.g., any, publish, draft, pending, private):'
+        description: 'Post status to migrate (e.g. publish, draft, pending, private):'
         required: false
-        default: 'draft'
+        default: ''
       dry_run:
         description: 'Dry run to check connectivity to source and destination:'
         type: boolean
