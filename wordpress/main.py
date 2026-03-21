@@ -320,12 +320,16 @@ def migrate_posts(limit=None, status="publish"):
     """Migrates posts sequentially"""
     logger.info("--- Migrating Posts ---")
     
+    if not status or not str(status).strip():
+        status = "publish"
+
     params = {
         'per_page': 10, 
         'page': 1, 
         'orderby': 'date', 
         'order': 'desc',
-        'status': status
+        'status': status,
+        'context': 'edit'
     }
     migrated_count = 0
     
