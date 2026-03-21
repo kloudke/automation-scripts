@@ -4,6 +4,7 @@ import json
 import logging
 import requests
 import cloudscraper
+import secrets
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urljoin
 from requests.auth import HTTPBasicAuth
@@ -207,7 +208,8 @@ def migrate_users():
         payload = {
             "username": user['slug'],
             "name": user['name'],
-            "email": f"{user['slug']}@placeholder.domain" # If email is missing in API response
+            "email": f"{user['slug']}@placeholder.domain", # If email is missing in API response
+            "password": secrets.token_urlsafe(20)
         }
         
         if 'email' in user:
