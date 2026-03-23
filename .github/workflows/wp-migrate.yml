@@ -82,7 +82,7 @@ jobs:
         with:
           name: migrated-urls
           path: ./wordpress/migrated_urls.txt
-          retention-days: 5
+          retention-days: 1
           if-no-files-found: ignore
 
       # Upload the state so the next run knows what has already been migrated
@@ -93,4 +93,4 @@ jobs:
         with:
           name: migration-state
           path: ./wordpress/migration_state.json
-          retention-days: 5
+          retention-days: 1
