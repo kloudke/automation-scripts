@@ -2,6 +2,7 @@
 import os
 import json
 import logging
+import tempfile
 import requests
 import cloudscraper
 import secrets
@@ -27,10 +28,16 @@ DEST_USER = os.environ.get("DEST_WP_USER", "")
 DEST_PASS = os.environ.get("DEST_WP_APP_PASSWORD", "")
 
 STATE_FILE = "migration_state.json"
+REQUEST_TIMEOUT = (10, 60)
+MAX_MEDIA_BYTES = 50 * 1024 * 1024
+ALLOWED_MEDIA_TYPES = ("image/", "video/", "audio/", "application/pdf")
 
-if not all([SOURCE_URL, SOURCE_USER, SOURCE_PASS, DEST_URL, DEST_USER, DEST_PASS]):
-    logger.error("Missing required environment variables. Please check SOURCE_WP_* and DEST_WP_* variables.")
-    exit(1) # We must exit here to prevent the script from running with invalid credentials
+# --- Environment Validation ---
+def validate_config():
+    if not all([SOURCE_URL, SOURCE_USER, SOURCE_PASS, DEST_URL, DEST_USER, DEST_PASS]):
+        logger.error("Missing required environment variables. Please check SOURCE_WP_* and DEST_WP_* variables.")
+        return False
+    return True
 
 # Global State Dictionary to avoid duplicates and map IDs
 state = {
@@ -54,8 +61,18 @@ def load_state():
             logger.error(f"Error loading state file: {e}")
 
 def save_state():
-    with open(STATE_FILE, "w") as f:
-        json.dump(state, f, indent=2)
+    state_dir = os.path.dirname(os.path.abspath(STATE_FILE)) or "."
+    fd, temp_path = tempfile.mkstemp(prefix=f".{os.path.basename(STATE_FILE)}.", suffix=".tmp", dir=state_dir, text=True)
+    try:
+        with os.fdopen(fd, "w") as f:
+            json.dump(state, f, indent=2)
+        os.replace(temp_path, STATE_FILE)
+    except Exception:
+        try:
+            os.unlink(temp_path)
+        except OSError:
+            pass
+        raise
 
 # --- API Clients ---
 class WPClient:
@@ -79,7 +96,7 @@ class WPClient:
     def _request(self, method, endpoint, **kwargs):
         url = f"{self.base_url}/{endpoint}"
         try:
-            response = self.session.request(method, url, **kwargs)
+            response = self.session.request(method, url, timeout=REQUEST_TIMEOUT, **kwargs)
             response.raise_for_status()
             return response
         except requests.exceptions.RequestException as e:
@@ -96,8 +113,7 @@ class WPClient:
 
     def get_all(self, endpoint, params=None):
         """Fetch all pages of results"""
-        if params is None:
-            params = {}
+        params = dict(params or {})
         params['per_page'] = 100
         params['page'] = 1
         
@@ -126,6 +142,18 @@ source_client = None
 dest_client = None
 
 # --- Migration Functions ---
+
+def is_source_url(url):
+    source = urlparse(SOURCE_URL)
+    candidate = urlparse(urljoin(SOURCE_URL, url))
+    source_port = source.port or (443 if source.scheme == "https" else 80)
+    candidate_port = candidate.port or (443 if candidate.scheme == "https" else 80)
+    return (
+        candidate.scheme in ("http", "https")
+        and candidate.hostname == source.hostname
+        and candidate_port == source_port
+    )
+
 
 def migrate_terms(taxonomy="categories"):
     """Migrates categories or tags"""
@@ -244,19 +272,38 @@ def upload_media(source_media_url, alt_text=""):
     logger.debug(f"Downloading media: {source_media_url}")
     try:
         # Get the file from source
-        img_response = requests.get(source_media_url, stream=True)
+        img_response = requests.get(source_media_url, stream=True, timeout=REQUEST_TIMEOUT)
         img_response.raise_for_status()
-        
+
+        content_type = img_response.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+        if not content_type.startswith(ALLOWED_MEDIA_TYPES):
+            logger.error(f"Unsupported media content type for {source_media_url}: {content_type or 'unknown'}")
+            return None
+
+        content_length = img_response.headers.get("Content-Length")
+        if content_length and int(content_length) > MAX_MEDIA_BYTES:
+            logger.error(f"Media file too large: {source_media_url} ({content_length} bytes)")
+            return None
+
+        media_bytes = bytearray()
+        for chunk in img_response.iter_content(chunk_size=1024 * 1024):
+            if not chunk:
+                continue
+            media_bytes.extend(chunk)
+            if len(media_bytes) > MAX_MEDIA_BYTES:
+                logger.error(f"Media file too large: {source_media_url} (exceeded {MAX_MEDIA_BYTES} bytes)")
+                return None
+
         # Upload to destination
         headers = {
             "Content-Disposition": f"attachment; filename={filename}",
-            "Content-Type": img_response.headers.get("Content-Type", "image/jpeg")
+            "Content-Type": content_type
         }
-        
+
         # Use raw data upload
         response = dest_client.post(
             "media",
-            data=img_response.content,
+            data=bytes(media_bytes),
             headers=headers
         )
         
@@ -301,7 +348,7 @@ def process_content_images(content):
             
         # Only process images that belong to the source URL domain
         # Adjust logic if images are hosted on a CDN
-        if SOURCE_URL in src or src.startswith('/'):
+        if is_source_url(src):
             # Ensure absolute URL
             abs_src = urljoin(SOURCE_URL, src)
             
@@ -466,8 +513,6 @@ def test_connection():
             dest_success = False
             
     return src_success and dest_success
-        
-    return True
 
 def main():
     import argparse
@@ -477,12 +522,16 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Test site connections without migrating")
     args = parser.parse_args()
 
+    if not validate_config():
+        exit(1)
+
     global source_client, dest_client
     try:
         source_client = WPClient(SOURCE_URL, SOURCE_USER, SOURCE_PASS)
         dest_client = WPClient(DEST_URL, DEST_USER, DEST_PASS)
     except Exception as e:
         logger.error(f"Failed to initialize clients: {e}")
+        exit(1)
 
     if args.dry_run:
         test_connection()
