@@ -2,7 +2,7 @@
 """
 fetch_apm_telemetry.py
 Queries the Elasticsearch cluster directly to pull Elastic APM metrics for WHMCS.
-Requires no external dependencies (uses standard library urllib.request).
+Allows split thresholds: transaction/API latency vs. database query latency.
 """
 
 import os
@@ -15,20 +15,25 @@ from datetime import datetime, timedelta
 # =============================================================================
 # 1. CONFIGURATION
 # =============================================================================
-# Adjust these values or export them as environment variables.
 ES_HOST = os.environ.get("ES_HOST", "http://12.34.56.78:9200").rstrip("/")
 ES_USERNAME = os.environ.get("ES_USERNAME", "elasticsearch_cluster_username")
 ES_PASSWORD = os.environ.get("ES_PASSWORD", "your_elastic_password_here")
-ES_API_KEY = os.environ.get("ES_API_KEY", "")  # Or use an API Key if configured
+ES_API_KEY = os.environ.get("ES_API_KEY", "")
 
-# APM Service name for WHMCS
+# APM Service name
 SERVICE_NAME = os.environ.get("APM_SERVICE_NAME", "whmcs")
 
-# APM Index pattern (defaults to standard Elastic Agent / APM Server patterns)
+# APM Index pattern
 APM_INDEX = os.environ.get("APM_INDEX", "traces-apm*,apm-*")
 
 # Time window for analysis
 TIME_WINDOW_HOURS = int(os.environ.get("TIME_WINDOW_HOURS", "24"))
+
+# Latency threshold for transactions and external APIs (default: 1000ms)
+LATENCY_THRESHOLD_MS = float(os.environ.get("LATENCY_THRESHOLD_MS", "1000.0"))
+
+# Latency threshold specifically for DB queries (default: 50ms)
+DB_LATENCY_THRESHOLD_MS = float(os.environ.get("DB_LATENCY_THRESHOLD_MS", "50.0"))
 
 # =============================================================================
 # 2. HELPER FUNCTIONS FOR REST CALLS
@@ -50,7 +55,6 @@ def send_es_request(path, payload):
     data = json.dumps(payload).encode("utf-8")
     req = Request(url, data=data, headers=headers, method="POST")
     
-    # Allow self-signed SSL certs commonly found on internal clusters
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
@@ -96,7 +100,6 @@ def fetch_latency_percentiles(start_time_iso):
     try:
         res = send_es_request(f"{APM_INDEX}/_search", query)
         percentiles = res["aggregations"]["latencies"]["values"]
-        # Convert microsecond durations to milliseconds
         p50 = percentiles.get("50.0", 0) / 1000.0
         p95 = percentiles.get("95.0", 0) / 1000.0
         p99 = percentiles.get("99.0", 0) / 1000.0
@@ -105,7 +108,7 @@ def fetch_latency_percentiles(start_time_iso):
         return None
 
 def fetch_slowest_transactions(start_time_iso):
-    """Fetches the top 10 slowest unique transactions by average duration."""
+    """Fetches unique transactions exceeding the latency threshold."""
     query = {
         "size": 0,
         "query": {
@@ -121,7 +124,7 @@ def fetch_slowest_transactions(start_time_iso):
             "by_name": {
                 "terms": {
                     "field": "transaction.name",
-                    "size": 10,
+                    "size": 1000,
                     "order": {"avg_latency": "desc"}
                 },
                 "aggs": {
@@ -138,17 +141,19 @@ def fetch_slowest_transactions(start_time_iso):
         buckets = res["aggregations"]["by_name"]["buckets"]
         transactions = []
         for b in buckets:
-            transactions.append({
-                "name": b["key"],
-                "count": b["doc_count"],
-                "avg_ms": (b["avg_latency"]["value"] or 0) / 1000.0
-            })
+            avg_ms = (b["avg_latency"]["value"] or 0) / 1000.0
+            if avg_ms >= LATENCY_THRESHOLD_MS:
+                transactions.append({
+                    "name": b["key"],
+                    "count": b["doc_count"],
+                    "avg_ms": avg_ms
+                })
         return transactions
     except Exception:
         return []
 
 def fetch_slowest_spans(start_time_iso, span_type="db"):
-    """Fetches slow spans of a specific type (e.g. 'db', 'external', 'app')."""
+    """Fetches spans of a specific type exceeding the appropriate latency threshold."""
     query = {
         "size": 0,
         "query": {
@@ -165,7 +170,7 @@ def fetch_slowest_spans(start_time_iso, span_type="db"):
             "by_span_name": {
                 "terms": {
                     "field": "span.name",
-                    "size": 10,
+                    "size": 1000,
                     "order": {"avg_duration": "desc"}
                 },
                 "aggs": {
@@ -177,16 +182,21 @@ def fetch_slowest_spans(start_time_iso, span_type="db"):
         }
     }
     
+    # Choose threshold based on span type
+    threshold = DB_LATENCY_THRESHOLD_MS if span_type == "db" else LATENCY_THRESHOLD_MS
+    
     try:
         res = send_es_request(f"{APM_INDEX}/_search", query)
         buckets = res["aggregations"]["by_span_name"]["buckets"]
         spans = []
         for b in buckets:
-            spans.append({
-                "name": b["key"],
-                "count": b["doc_count"],
-                "avg_ms": (b["avg_duration"]["value"] or 0) / 1000.0
-            })
+            avg_ms = (b["avg_duration"]["value"] or 0) / 1000.0
+            if avg_ms >= threshold:
+                spans.append({
+                    "name": b["key"],
+                    "count": b["doc_count"],
+                    "avg_ms": avg_ms
+                })
         return spans
     except Exception:
         return []
@@ -200,12 +210,22 @@ if __name__ == "__main__":
     print("=" * 60)
     
     # Calculate timestamps
-    time_threshold = datetime.utcnow() - timedelta(hours=TIME_WINDOW_HOURS)
+    try:
+        time_threshold = datetime.now(timezone.utc) - timedelta(hours=TIME_WINDOW_HOURS)
+    except NameError:
+        from datetime import timezone
+        try:
+            time_threshold = datetime.now(timezone.utc) - timedelta(hours=TIME_WINDOW_HOURS)
+        except Exception:
+            time_threshold = datetime.utcnow() - timedelta(hours=TIME_WINDOW_HOURS)
+            
     start_time_iso = time_threshold.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
     
     print(f"[*] Querying Elasticsearch Host: {ES_HOST}")
     print(f"[*] Targeting APM Service     : {SERVICE_NAME}")
     print(f"[*] Time Range                : Last {TIME_WINDOW_HOURS} hours (since {start_time_iso})")
+    print(f"[*] Transaction/API Threshold : >= {LATENCY_THRESHOLD_MS} ms")
+    print(f"[*] DB Query Latency Threshold: >= {DB_LATENCY_THRESHOLD_MS} ms")
     print("-" * 60)
     
     # 1. Fetch Latency Percentiles
@@ -222,38 +242,38 @@ if __name__ == "__main__":
     print("-" * 60)
     
     # 2. Fetch Slowest Transactions
-    print("[*] Fetching top 10 slowest transactions...")
+    print(f"[*] Fetching all transactions >= {LATENCY_THRESHOLD_MS} ms...")
     slow_tx = fetch_slowest_transactions(start_time_iso)
     if slow_tx:
         for idx, tx in enumerate(slow_tx, 1):
             print(f"    {idx:2d}. {tx['name']}")
             print(f"        Average Latency : {tx['avg_ms']:.2f} ms (Count: {tx['count']})")
     else:
-        print("    [!] No transactions found.")
+        print(f"    [!] No transactions found >= {LATENCY_THRESHOLD_MS} ms.")
         
     print("-" * 60)
     
     # 3. Fetch Slowest Database Spans
-    print("[*] Fetching top 10 slowest database queries (SQL)...")
+    print(f"[*] Fetching all database queries (SQL) >= {DB_LATENCY_THRESHOLD_MS} ms...")
     slow_db = fetch_slowest_spans(start_time_iso, "db")
     if slow_db:
         for idx, span in enumerate(slow_db, 1):
             print(f"    {idx:2d}. {span['name']}")
             print(f"        Average Duration: {span['avg_ms']:.2f} ms (Count: {span['count']})")
     else:
-        print("    [!] No database queries found.")
+        print(f"    [!] No database queries found >= {DB_LATENCY_THRESHOLD_MS} ms.")
         
     print("-" * 60)
     
     # 4. Fetch Slowest External Spans (API Calls)
-    print("[*] Fetching top 10 slowest external network requests (APIs)...")
+    print(f"[*] Fetching all external network requests (APIs) >= {LATENCY_THRESHOLD_MS} ms...")
     slow_ext = fetch_slowest_spans(start_time_iso, "external")
     if slow_ext:
         for idx, span in enumerate(slow_ext, 1):
             print(f"    {idx:2d}. {span['name']}")
             print(f"        Average Duration: {span['avg_ms']:.2f} ms (Count: {span['count']})")
     else:
-        print("    [!] No external API requests found.")
+        print(f"    [!] No external API requests found >= {LATENCY_THRESHOLD_MS} ms.")
         
     print("=" * 60)
     print("Execution complete.")
