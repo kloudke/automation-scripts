@@ -38,26 +38,22 @@ Optimizes slow deletion queries on activity logs when pruning or removing client
 ### C. DNSManager3 Jobs Processing
 Optimizes background and page-load job lookups by status or user association (Average duration: 518.5ms - 843.6ms).
 ```sql
-CREATE INDEX idx_dnsmanager3_job_job_status 
-ON DNSManager3_Job (job, status);
+CREATE INDEX idx_dnsmanager3_job_job_status ON DNSManager3_Job (job, status);
 
-CREATE INDEX idx_dnsmanager3_job_userid 
-ON DNSManager3_Job (userid);
+CREATE INDEX idx_dnsmanager3_job_userid ON DNSManager3_Job (userid);
 ```
 
 ### D. Client Sorting and Admin Lookups
 Optimizes admin dashboard tables listing and sorting clients by name (Average duration: 147.5 ms).
 ```sql
 -- Prefix key lengths (64) are required as these columns are stored as TEXT/BLOB or large VARCHAR
-CREATE INDEX idx_tblclients_name_search 
-ON tblclients (lastname(64), firstname(64), companyname(64));
+CREATE INDEX idx_tblclients_name_search ON tblclients (lastname(64), firstname(64), companyname(64));
 ```
 
 ### E. Domain Renewal Reminders
 Optimizes checks for historical reminders sent to clients for a given domain (Average duration: 103.9 ms).
 ```sql
-CREATE INDEX idx_tbldomainreminders_domain_id 
-ON tbldomainreminders (domain_id);
+CREATE INDEX idx_tbldomainreminders_domain_id ON tbldomainreminders (domain_id);
 ```
 
 ---
