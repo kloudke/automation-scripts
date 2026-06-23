@@ -22,11 +22,11 @@ SHOW INDEXES FROM tbldomainreminders;
 Optimizes slow inner joins and item lookups by transaction type/relation (Average duration: 63.8ms - 73.8ms).
 ```sql
 -- Composite index to satisfy JOINs on tblinvoiceitems.invoiceid filtering by type and relid
-CREATE INDEX IF NOT EXISTS idx_tblinvoiceitems_type_relid_invoiceid 
+CREATE INDEX idx_tblinvoiceitems_type_relid_invoiceid 
 ON tblinvoiceitems (type, relid, invoiceid);
 
 -- Simple index for single table lookups
-CREATE INDEX IF NOT EXISTS idx_tblinvoiceitems_type_relid 
+CREATE INDEX idx_tblinvoiceitems_type_relid 
 ON tblinvoiceitems (type, relid);
 ```
 
@@ -38,24 +38,24 @@ Optimizes slow deletion queries on activity logs when pruning or removing client
 ### C. DNSManager3 Jobs Processing
 Optimizes background and page-load job lookups by status or user association (Average duration: 518.5ms - 843.6ms).
 ```sql
-CREATE INDEX IF NOT EXISTS idx_dnsmanager3_job_job_status 
+CREATE INDEX idx_dnsmanager3_job_job_status 
 ON DNSManager3_Job (job, status);
 
-CREATE INDEX IF NOT EXISTS idx_dnsmanager3_job_userid 
+CREATE INDEX idx_dnsmanager3_job_userid 
 ON DNSManager3_Job (userid);
 ```
 
 ### D. Client Sorting and Admin Lookups
 Optimizes admin dashboard tables listing and sorting clients by name (Average duration: 147.5 ms).
 ```sql
-CREATE INDEX IF NOT EXISTS idx_tblclients_name_search 
+CREATE INDEX idx_tblclients_name_search 
 ON tblclients (lastname, firstname, companyname);
 ```
 
 ### E. Domain Renewal Reminders
 Optimizes checks for historical reminders sent to clients for a given domain (Average duration: 103.9 ms).
 ```sql
-CREATE INDEX IF NOT EXISTS idx_tbldomainreminders_domain_id 
+CREATE INDEX idx_tbldomainreminders_domain_id 
 ON tbldomainreminders (domain_id);
 ```
 
