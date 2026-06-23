@@ -21,8 +21,8 @@ The latest telemetry isolates several high-impact database queries causing threa
 ### A. Severe Table Locks on Activity Log Deletions
 * **Query**: `delete from tblactivitylog where userid = ? and id <= ?`
 * **Average Duration**: **6,244.49 ms** (6.2s)
-* **Root Cause**: Missing index on `tblactivitylog(userid)`. When a client is deleted or pruned, the database performs a full table scan on `tblactivitylog` to identify matching rows. On a large logs table, this locks database rows/pages, stalling other client transactions.
-* **Remediation**: Add a single index on `userid`.
+* **Root Cause**: While database inspection shows that an index on `userid` **already exists**, the table has 6 distinct indexes. A delete command on a large number of rows requires updating all 6 indexes for every deleted row, which blocks database execution threads. This is compounded by severe concurrent write locks from continuous system logging.
+* **Remediation**: Run database pruning of historical logs weekly to control table size, and defragment using `OPTIMIZE TABLE` during off-peak hours to speed up index modifications.
 
 ### B. Slow DNSManager3 Job Lookups
 * **Queries**:

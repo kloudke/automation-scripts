@@ -30,12 +30,10 @@ CREATE INDEX IF NOT EXISTS idx_tblinvoiceitems_type_relid
 ON tblinvoiceitems (type, relid);
 ```
 
-### B. Activity Log Deletion & User Associations
+### B. Activity Log Deletion & User Associations (Existing Index Analysis)
 Optimizes slow deletion queries on activity logs when pruning or removing clients (Average duration: 6,244.49 ms).
-```sql
-CREATE INDEX IF NOT EXISTS idx_tblactivitylog_userid 
-ON tblactivitylog (userid);
-```
+> [!NOTE]
+> Database verification confirms that the index on `userid` **already exists** on `tblactivitylog`. The 6.2-second latency spike is caused by concurrent log writing (which creates high lock wait times) and the overhead of updating all 6 indexes on `tblactivitylog` during client log deletions. Use the weekly pruning cron and defragmentation steps in Sections 3 and 4 to mitigate this.
 
 ### C. DNSManager3 Jobs Processing
 Optimizes background and page-load job lookups by status or user association (Average duration: 518.5ms - 843.6ms).
@@ -63,14 +61,24 @@ ON tbldomainreminders (domain_id);
 
 ---
 
-## 3. Log Table Pruning & Defragmentation (Weekly Task)
-To address write and insert updates, run these commands to prune logs older than 90 days and rebuild index pages:
+## 3. Log Table Pruning (Weekly Task)
+To address write and insert updates, run these commands to prune logs older than 90 days:
 ```sql
--- Delete logs older than 90 days
 DELETE FROM tblactivitylog WHERE `date` < DATE_SUB(NOW(), INTERVAL 90 DAY);
 DELETE FROM tblgatewaylog WHERE `date` < DATE_SUB(NOW(), INTERVAL 90 DAY);
 DELETE FROM tbladminlog WHERE `lastvisit` < DATE_SUB(NOW(), INTERVAL 90 DAY);
+```
 
--- Reclaim disk space and optimize indexes
-OPTIMIZE TABLE tblactivitylog, tblgatewaylog, tbladminlog;
+---
+
+## 4. Defragmentation & Optimizer Statistics Tuning
+If you inspect the database and find that the indexes *already exist* but queries are still performing slowly, the database optimizer may be using outdated statistics or the index blocks may be heavily fragmented due to high write/delete churn. 
+
+Run these commands during off-peak hours (as they consume significant disk I/O and CPU) to update statistics and defragment the index trees:
+```sql
+-- Update optimizer statistics
+ANALYZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders;
+
+-- Rebuild tables and defragment indexes
+OPTIMIZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders;
 ```
