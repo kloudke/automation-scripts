@@ -78,16 +78,58 @@ Synchronous, blocking external network connections remain the primary contributo
 
 ## 4. Kubernetes-Specific Recommendations & Remediation Plan
 
-### Step 1: Apply Updated Database Indexes
-Run the updated optimization DDL statements to create the missing indexes on the database:
-* [whmcs_db_optimization.sql](file:///Users/gedeon/Dev/work/tcloud-whmcs/whmcs_db_optimization.sql)
-
+### Step 1: Stage, Commit, and Push Code Changes
+Push the optimization branch to your repository:
 ```bash
-kubectl exec -i deployment/whmcs-deployment -- mysql -h [DB_HOST] -u [DB_USER] -p[DB_PASSWORD] [DB_NAME] < whmcs_db_optimization.sql
+git add entrypoint.sh modules/addons/olitt_whmcs_addon/olitt-connect.php modules/servers/virtualizor/virtualizor.php php.ini
+git commit -m "feat: optimize WHMCS performance, add caching, and database configuration"
+git push origin optimize-whmcs
 ```
 
-### Step 2: Implement APM Sidecar or DaemonSet
-Route `elastic_apm.server_url` to a local sidecar/DaemonSet to reduce APM telemetry dispatch latency to under 1ms.
+### Step 2: Build and Deploy the Container Image
+Trigger your CI/CD pipeline to compile the new Docker image including the updated `php.ini`, `entrypoint.sh`, and cache-enabled files.
 
-### Step 3: Route Host/Hypervisor Traffic Privately & Enable Cache
-Pass `REDIS_HOST` environment variable to enable internal Redis caching, storing hypervisor responses to avoid redundant synchronous API calls.
+### Step 3: Configure K8s Deployment Manifest & Environment Variables
+Update your Kubernetes deployment/values manifest to pass the caching and telemetry environment variables:
+```yaml
+spec:
+  template:
+    spec:
+      containers:
+        - name: whmcs-app
+          image: truehostcloud/whmcs:your-new-tag
+          env:
+            - name: INSTRUMENT_ELASTIC_APM
+              value: "True"
+            - name: APM_SERVICE_NAME
+              value: "TSA-WHMCS"
+            - name: APM_SERVER_URL
+              value: "http://localhost:8200" # Local loopback to sidecar
+            - name: REDIS_HOST
+              value: "redis-service.default.svc.cluster.local" # Internal K8s service
+```
+
+### Step 4: Deploy APM Server Sidecar Container
+To eliminate telemetry collection network delay, run the APM server as a sidecar container in the same pod. Add this to the `spec.containers` block of your deployment:
+```yaml
+        - name: apm-server
+          image: docker.elastic.co/apm/apm-server:8.11.0
+          ports:
+            - containerPort: 8200
+          env:
+            - name: elastic_apm.server_url
+              value: "https://apm.jisort.com"
+            - name: apm-server.auth.secret_token
+              value: "YOUR_APM_SECRET_TOKEN"
+```
+
+### Step 5: Execute Database Optimization & Maintenance
+Run the optimized DDL index scripts and trigger defragmentation/statistics update.
+
+1. **Deploy Missing Indexes**:
+   Execute the indexing statements defined in the database optimization guide [whmcs_db_optimization.md](file:///Users/gedeon/.gemini/antigravity/brain/2a888f0c-07cf-4a6e-8b61-6591705742a1/scratch/whmcs_db_optimization.md) (or run the sql commands directly from your database client).
+
+2. **Defragment & Analyze Tables** (Run during off-peak hours):
+   ```bash
+   kubectl exec -i deployment/whmcs-deployment -- mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "ANALYZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders; OPTIMIZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders;"
+   ```

@@ -1,0 +1,303 @@
+============================================================
+           WHMCS Elastic APM Telemetry Fetcher
+============================================================
+[*] Querying Elasticsearch Host: https://elastic.jisort.com
+[*] Targeting APM Service     : TSA-WHMCS
+[*] Time Range                : Last 24 hours (since 2026-06-22T09:14:56.941170Z)
+[*] Transaction/API Threshold : >= 2000.0 ms
+[*] DB Query Latency Threshold: >= 100.0 ms
+------------------------------------------------------------
+[*] Fetching general latency percentiles...
+    - Median Latency (p50): 467.29 ms
+    - 95th Percentile (p95): 3640.89 ms
+    - 99th Percentile (p99): 11068.87 ms
+------------------------------------------------------------
+[*] Fetching all transactions >= 2000.0 ms...
+     1. POST /cloud/modules/addons/olitt_whmcs_addon/olitt-connect.php
+        Average Latency : 33736.87 ms (Count: 1)
+     2. GET /cloud/modules/addons/olitt_ai_sites/olitt-edit.php
+        Average Latency : 22569.17 ms (Count: 5)
+     3. POST /cloud/viewinvoice.php
+        Average Latency : 9315.78 ms (Count: 2)
+     4. POST /cloud/admin/orders.php
+        Average Latency : 7817.40 ms (Count: 1)
+     5. GET /cloud/admin/systemactivitylog.php
+        Average Latency : 6763.89 ms (Count: 1)
+     6. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/drtebogomakena.co.za/sync
+        Average Latency : 5370.13 ms (Count: 1)
+     7. POST /cloud/clientarea.php
+        Average Latency : 4812.55 ms (Count: 22)
+     8. GET /cloud/admin/clientsdomains.php
+        Average Latency : 4743.28 ms (Count: 48)
+     9. GET /cloud/admin/clientsservices.php
+        Average Latency : 4391.56 ms (Count: 191)
+    10. GET /cloud/supporttickets.php
+        Average Latency : 4327.13 ms (Count: 5)
+    11. GET /cloud/includes/api.php
+        Average Latency : 4034.37 ms (Count: 176)
+    12. GET /cloud/clientarea.php
+        Average Latency : 3604.12 ms (Count: 409)
+    13. POST /cloud/admin/invoices.php
+        Average Latency : 3341.93 ms (Count: 1)
+    14. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/zweletrading.co.za/transfersync
+        Average Latency : 3274.73 ms (Count: 1)
+    15. POST /cloud/index.php
+        Average Latency : 3084.69 ms (Count: 1096)
+    16. GET /cloud/viewinvoice.php
+        Average Latency : 2901.82 ms (Count: 54)
+    17. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/ewplumbers.co.za/sync
+        Average Latency : 2892.94 ms (Count: 1)
+    18. GET /cloud/index.php/announcements/view/2020-01
+        Average Latency : 2830.94 ms (Count: 1)
+    19. GET /cloud/admin/
+        Average Latency : 2829.95 ms (Count: 24)
+    20. GET /cloud/index.php/password/reset
+        Average Latency : 2781.64 ms (Count: 1)
+    21. GET /cloud/admin/configservers.php
+        Average Latency : 2694.89 ms (Count: 1)
+    22. POST /cloud/index.php/login/signIn
+        Average Latency : 2690.06 ms (Count: 1)
+    23. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/lhcschool.co.za/sync
+        Average Latency : 2562.84 ms (Count: 1)
+    24. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/autocarfix.co.za/transfersync
+        Average Latency : 2473.28 ms (Count: 1)
+    25. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/creditrescuegardenroute.co.za/sync
+        Average Latency : 2469.76 ms (Count: 1)
+    26. GET /cloud/admin/clientssummary.php
+        Average Latency : 2400.70 ms (Count: 6)
+    27. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/chishaun.co.za/sync
+        Average Latency : 2319.82 ms (Count: 1)
+    28. GET /cloud//register.php
+        Average Latency : 2310.29 ms (Count: 6)
+    29. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/gavazaengineeringcontractors.co.za/sync
+        Average Latency : 2283.74 ms (Count: 1)
+    30. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/neonivice.co.za/sync
+        Average Latency : 2266.69 ms (Count: 1)
+    31. GET /cloud/cart.php
+        Average Latency : 2203.40 ms (Count: 519)
+    32. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/mmhorganics.co.za/sync
+        Average Latency : 2181.95 ms (Count: 1)
+    33. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/lok-in.co.za/sync
+        Average Latency : 2131.63 ms (Count: 1)
+    34. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/lotsocaretreefelling.co.za/sync
+        Average Latency : 2101.20 ms (Count: 1)
+    35. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/smarthubrus.co.za/sync
+        Average Latency : 2084.59 ms (Count: 1)
+    36. GET /cloud/modules/addons/DomainsReseller/api/index.php/domains/frothmedia.co.za/nameservers
+        Average Latency : 2057.71 ms (Count: 6)
+    37. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/citymom.co.za/sync
+        Average Latency : 2052.47 ms (Count: 1)
+    38. POST /cloud/modules/addons/DomainsReseller/api/index.php/domains/jettiride.co.za/sync
+        Average Latency : 2029.71 ms (Count: 1)
+------------------------------------------------------------
+[*] Fetching all database queries (SQL) >= 100.0 ms...
+     1. delete from `tblactivitylog` where `userid` = ? and `id` <= ?
+        Average Duration: 6244.49 ms (Count: 1)
+     2. select * from `DNSManager3_Job` where `job` = ? and `status` = ?
+        Average Duration: 843.64 ms (Count: 21)
+     3. select `DNSManager3_Job`.* from `DNSManager3_Job` where `userid` = ?
+        Average Duration: 518.57 ms (Count: 1)
+     4. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 20000
+        Average Duration: 221.48 ms (Count: 1)
+     5. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 10000
+        Average Duration: 212.90 ms (Count: 1)
+     6. SELECT paymentmethod FROM tblinvoices WHERE `id`='80023'
+        Average Duration: 209.22 ms (Count: 1)
+     7. SELECT COUNT(id) FROM tblactivitylog
+        Average Duration: 207.45 ms (Count: 3)
+     8. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 1000
+        Average Duration: 173.74 ms (Count: 1)
+     9. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 9000, 1000
+        Average Duration: 147.54 ms (Count: 1)
+    10. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 2000, 1000
+        Average Duration: 147.41 ms (Count: 1)
+    11. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 23000
+        Average Duration: 147.37 ms (Count: 1)
+    12. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 1000, 1000
+        Average Duration: 146.95 ms (Count: 1)
+    13. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 5000, 1000
+        Average Duration: 146.57 ms (Count: 1)
+    14. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 11000, 1000
+        Average Duration: 146.39 ms (Count: 1)
+    15. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 10000, 1000
+        Average Duration: 144.32 ms (Count: 1)
+    16. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 12000, 1000
+        Average Duration: 144.24 ms (Count: 1)
+    17. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 0, 1000
+        Average Duration: 144.14 ms (Count: 1)
+    18. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 13000, 1000
+        Average Duration: 141.27 ms (Count: 1)
+    19. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 4000, 1000
+        Average Duration: 141.19 ms (Count: 1)
+    20. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 6000, 1000
+        Average Duration: 139.54 ms (Count: 1)
+    21. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 3000, 1000
+        Average Duration: 139.28 ms (Count: 1)
+    22. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 7000, 1000
+        Average Duration: 138.90 ms (Count: 1)
+    23. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 24000
+        Average Duration: 138.80 ms (Count: 1)
+    24. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 11000
+        Average Duration: 129.43 ms (Count: 1)
+    25. SELECT tblinvoices.*, tblclients.firstname, tblclients.lastname, tblclients.companyname, tblclients.groupid, tblclients.currency FROM tblinvoices IGNORE INDEX (`status`) LEFT JOIN tblclients ON tblclients.id=tblinvoices.userid WHERE tblinvoices.datepaid BETWEEN '2026-06-22 00:00:00' AND '2026-06-22 23:59:59' AND tblinvoices.status='Paid' ORDER BY duedate DESC LIMIT 0,100
+        Average Duration: 129.37 ms (Count: 1)
+    26. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 7000
+        Average Duration: 128.82 ms (Count: 1)
+    27. SELECT SQL_CALC_FOUND_ROWS id, firstname, lastname, companyname, email, city, groupid, address1, address2, datecreated, country, phonenumber, currency, postcode, status
+        FROM tblclients
+        
+        ORDER BY lastname ASC, firstname ASC, companyname ASC
+        LIMIT 8000, 1000
+        Average Duration: 128.54 ms (Count: 1)
+    28. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 19000
+        Average Duration: 127.80 ms (Count: 1)
+    29. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 21000
+        Average Duration: 127.24 ms (Count: 1)
+    30. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 5000
+        Average Duration: 127.10 ms (Count: 1)
+    31. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 22000
+        Average Duration: 126.62 ms (Count: 1)
+    32. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 4000
+        Average Duration: 118.64 ms (Count: 1)
+    33. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 18000
+        Average Duration: 117.21 ms (Count: 1)
+    34. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 12000
+        Average Duration: 116.82 ms (Count: 1)
+    35. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 13000
+        Average Duration: 115.61 ms (Count: 1)
+    36. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 17000
+        Average Duration: 115.42 ms (Count: 1)
+    37. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 15000
+        Average Duration: 114.07 ms (Count: 1)
+    38. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 14000
+        Average Duration: 113.60 ms (Count: 1)
+    39. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 16000
+        Average Duration: 113.07 ms (Count: 1)
+    40. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 8000
+        Average Duration: 112.25 ms (Count: 1)
+    41. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 9000
+        Average Duration: 111.88 ms (Count: 3)
+    42. select `tbldomains`.*, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblclients`.`groupid`, `tblclients`.`currency` from `tbldomains` inner join `tblclients` on `tblclients`.`id` = `tbldomains`.`userid` where `tblclients`.`status` = ? order by `domain` asc limit 100 offset 0
+        Average Duration: 111.61 ms (Count: 1)
+    43. select `tblinvoices`.`id`, `tblinvoices`.`duedate` from `tblinvoices` inner join `tblinvoiceitems` on `tblinvoices`.`id` = `tblinvoiceitems`.`invoiceid` and `tblinvoiceitems`.`type` in (?, ?, ?) and `tblinvoiceitems`.`relid` = ? where `tblinvoices`.`status` = ? order by `tblinvoices`.`duedate` asc limit 1
+        Average Duration: 107.21 ms (Count: 35)
+    44. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 2000
+        Average Duration: 106.56 ms (Count: 1)
+    45. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 0
+        Average Duration: 106.29 ms (Count: 1)
+    46. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 6000
+        Average Duration: 104.48 ms (Count: 1)
+    47. SELECT * FROM tbldomainreminders WHERE `domain_id`='10554' ORDER BY `id` DESC
+        Average Duration: 103.95 ms (Count: 1)
+    48. select `tblinvoices`.`id`, `tblinvoices`.`duedate` from `tblinvoices` inner join `tblinvoiceitems` on `tblinvoices`.`id` = `tblinvoiceitems`.`invoiceid` and `tblinvoiceitems`.`type` = ? and `tblinvoiceitems`.`relid` = ? where `tblinvoices`.`status` = ? order by `tblinvoices`.`duedate` asc limit 1
+        Average Duration: 103.80 ms (Count: 58)
+    49. SELECT * FROM tbldomainreminders WHERE `domain_id`='16972' ORDER BY `id` DESC
+        Average Duration: 103.58 ms (Count: 1)
+    50. SELECT * FROM tbldomainreminders WHERE `domain_id`='7542' ORDER BY `id` DESC
+        Average Duration: 103.53 ms (Count: 1)
+    51. select `tblinvoices`.`id`, `tblinvoices`.`userid`, `tblclients`.`firstname`, `tblclients`.`lastname`, `tblclients`.`companyname`, `tblinvoices`.* from `tblinvoices` inner join `tblclients` on `tblclients`.`id` = `tblinvoices`.`userid` order by `tblinvoices`.`date` desc limit 1000 offset 3000
+        Average Duration: 102.07 ms (Count: 1)
+    52. SELECT * FROM tbldomainreminders WHERE `domain_id`='16975' ORDER BY `id` DESC
+        Average Duration: 101.72 ms (Count: 1)
+    53. SELECT * FROM tbldomainreminders WHERE `domain_id`='8231' ORDER BY `id` DESC
+        Average Duration: 101.58 ms (Count: 1)
+------------------------------------------------------------
+[*] Fetching all external network requests (APIs) >= 2000.0 ms...
+     1. POST olitt.com
+        Average Duration: 28454.69 ms (Count: 1)
+     2. POST app.olitt.com
+        Average Duration: 22308.44 ms (Count: 5)
+     3. POST 141.95.3.80
+        Average Duration: 14257.64 ms (Count: 18)
+     4. HEAD ngceshetrading.co.za
+        Average Duration: 10002.68 ms (Count: 1)
+     5. HEAD mjdigitaltech.co.za
+        Average Duration: 10000.64 ms (Count: 1)
+     6. HEAD ngomaneattorneys.co.za
+        Average Duration: 8984.61 ms (Count: 1)
+     7. HEAD kpmattorneys.co.za
+        Average Duration: 6509.33 ms (Count: 1)
+     8. HEAD nkomazihub.co.za
+        Average Duration: 6456.91 ms (Count: 1)
+     9. POST 188.245.86.149
+        Average Duration: 5284.40 ms (Count: 32)
+    10. GET 188.245.86.149
+        Average Duration: 5260.15 ms (Count: 3)
+    11. GET central3.dns.truehost.cloud
+        Average Duration: 4900.88 ms (Count: 196)
+    12. HEAD flix101.co.za
+        Average Duration: 3409.59 ms (Count: 1)
+    13. HEAD evercircle.co.za
+        Average Duration: 3225.85 ms (Count: 1)
+    14. HEAD 21stcenturyaccountant.co.za
+        Average Duration: 2930.83 ms (Count: 1)
+    15. POST 157.180.74.207
+        Average Duration: 2929.05 ms (Count: 148)
+    16. HEAD newcoremusic.co.za
+        Average Duration: 2913.87 ms (Count: 1)
+    17. HEAD mzansigrants.co.za
+        Average Duration: 2487.68 ms (Count: 1)
+    18. HEAD moshitsolutions.co.za
+        Average Duration: 2301.23 ms (Count: 1)
+    19. HEAD humbledoindustry.co.za
+        Average Duration: 2261.00 ms (Count: 1)
+    20. HEAD firedfine.com
+        Average Duration: 2087.91 ms (Count: 1)
+    21. HEAD gbboys.co.za
+        Average Duration: 2085.51 ms (Count: 1)
+    22. HEAD artificialturfsupplies.co.za
+        Average Duration: 2006.78 ms (Count: 1)
+============================================================
+Execution complete.
