@@ -48,8 +48,9 @@ ON DNSManager3_Job (userid);
 ### D. Client Sorting and Admin Lookups
 Optimizes admin dashboard tables listing and sorting clients by name (Average duration: 147.5 ms).
 ```sql
+-- Prefix key lengths (64) are required as these columns are stored as TEXT/BLOB or large VARCHAR
 CREATE INDEX idx_tblclients_name_search 
-ON tblclients (lastname, firstname, companyname);
+ON tblclients (lastname(64), firstname(64), companyname(64));
 ```
 
 ### E. Domain Renewal Reminders
