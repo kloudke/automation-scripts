@@ -2,13 +2,13 @@ name: WordPress CI
 
 on:
   push:
-    paths:
-      - "wordpress/**"
-      - ".github/workflows/ci.yml"
-  pull_request:
-    paths:
-      - "wordpress/**"
-      - ".github/workflows/ci.yml"
+  #   paths:
+  #     - "wordpress/**"
+  #     - ".github/workflows/ci.yml"
+  # pull_request:
+  #   paths:
+  #     - "wordpress/**"
+  #     - ".github/workflows/ci.yml"
   workflow_dispatch:
 
 jobs:
