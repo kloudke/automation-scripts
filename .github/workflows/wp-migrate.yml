@@ -21,7 +21,8 @@ on:
 jobs:
   migrate-posts:
     runs-on:
-      group: kloudke
+      group: k8s
+      label: self-hosted
     
     steps:
       - name: Checkout Repository
