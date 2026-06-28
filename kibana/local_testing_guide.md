@@ -149,9 +149,58 @@ spec:
 
 ---
 
-## Step 3: Deploy the WHMCS App Locally in K8s
+## Step 3: Deploy a Local MySQL Database
 
-Deploy the WHMCS application container referencing your local MySQL/MariaDB database and pointing to the local APM server.
+Apply this manifest to deploy a lightweight single-node MySQL 5.7 database in the default namespace:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "root_password"
+            - name: MYSQL_DATABASE
+              value: "whmcs_db"
+            - name: MYSQL_USER
+              value: "whmcs"
+            - name: MYSQL_PASSWORD
+              value: "whmcs_password"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: default
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+```
+
+---
+
+## Step 4: Deploy the WHMCS App Locally in K8s
+
+Deploy the WHMCS application container pointing to the local APM server and the newly created local MySQL service:
 
 ```yaml
 apiVersion: apps/v1
@@ -183,7 +232,7 @@ spec:
             - name: APM_SERVER_URL
               value: "http://apm-server.monitoring.svc.cluster.local:8200"
             - name: DB_HOST
-              value: "YOUR_LOCAL_DB_HOST"
+              value: "mysql"
             - name: DB_PORT
               value: "3306"
             - name: DB_USER
@@ -198,7 +247,7 @@ spec:
 
 ---
 
-## Step 4: Verify Telemetry and Optimization in Kibana
+## Step 5: Verify Telemetry and Optimization in Kibana
 
 1. **Access Kibana**:
    Port-forward to Kibana locally:
@@ -208,7 +257,7 @@ spec:
    Open `http://localhost:5601` in your browser.
 
 2. **Generate Traffic**:
-   Trigger requests on the local WHMCS deployment (e.g. click around the clientarea or administration panels).
+   Trigger requests on the local WHMCS deployment (e.g. click around the client area or administration panels).
 
 3. **Check the APM Dashboard**:
    - In Kibana, go to **Observability** > **APM** > **Services**.
