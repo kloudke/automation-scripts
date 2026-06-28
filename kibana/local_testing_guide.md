@@ -160,6 +160,7 @@ metadata:
   name: mysql-pvc
   namespace: default
 spec:
+  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:
