@@ -60,6 +60,12 @@ ALTER TABLE tblinvoices
 -- 5. Client Admin Dashboards & Search
 -- Optimizes searching/sorting clients by name in the admin area (avg 147ms)
 CREATE INDEX idx_tblclients_name_search ON tblclients (lastname(64), firstname(64), companyname(64));
+
+-- 6. Admin Session Verification (Critical for India Deployment)
+-- Resolves slow admin logins and page transitions (avg 5.0s - 40.6s)
+ALTER TABLE tbladminlog
+  ADD INDEX idx_tbladminlog_sessionid (sessionid),
+  ALGORITHM=INPLACE, LOCK=NONE;
 ```
 
 > [!NOTE]
@@ -99,10 +105,10 @@ DO
 After performing bulk deletions or index updates, defragment the index trees to reclaim disk blocks and update statistics for the MySQL optimizer:
 ```sql
 -- Update statistics
-ANALYZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders, tblinvoices;
+ANALYZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders, tblinvoices, tbladminlog;
 
 -- Rebuild tables and defragment indexes (Run during off-peak hours)
-OPTIMIZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders, tblinvoices;
+OPTIMIZE TABLE tblinvoiceitems, tblactivitylog, DNSManager3_Job, tblclients, tbldomainreminders, tblinvoices, tbladminlog;
 ```
 
 ---

@@ -1,0 +1,1070 @@
+============================================================
+           WHMCS Elastic APM Telemetry Fetcher
+============================================================
+[*] Querying Elasticsearch Host: https://elastic.jisort.com
+[*] Targeting APM Service     : TIN-WHMCS
+[*] Time Range                : Last 24 hours (since 2026-06-24T12:09:58.912155Z)
+[*] Transaction/API Threshold : >= 2000.0 ms
+[*] DB Query Latency Threshold: >= 200.0 ms
+------------------------------------------------------------
+[*] Fetching general latency percentiles...
+    - Median Latency (p50): 388.92 ms
+    - 95th Percentile (p95): 4609.74 ms
+    - 99th Percentile (p99): 9895.29 ms
+------------------------------------------------------------
+[*] Fetching all transactions >= 2000.0 ms...
+     1. GET /cloud/
+        Average Latency : 3277.71 ms (Count: 530)
+        Cumulative Time : 1737.19 seconds
+     2. GET /cloud/index.php
+        Average Latency : 2538.74 ms (Count: 204)
+        Cumulative Time : 517.90 seconds
+     3. POST /cloud/admin/search/intellisearch
+        Average Latency : 7589.43 ms (Count: 39)
+        Cumulative Time : 295.99 seconds
+     4. POST /cloud/index.php
+        Average Latency : 2881.11 ms (Count: 98)
+        Cumulative Time : 282.35 seconds
+     5. GET /cloud/admin/configaddonmods.php
+        Average Latency : 29719.37 ms (Count: 7)
+        Cumulative Time : 208.04 seconds
+     6. GET /cloud//index.php
+        Average Latency : 2521.73 ms (Count: 60)
+        Cumulative Time : 151.30 seconds
+     7. GET /cloud/store/cloud-hosting
+        Average Latency : 2773.16 ms (Count: 31)
+        Cumulative Time : 85.97 seconds
+     8. GET /cloud/admin/index.php
+        Average Latency : 17589.35 ms (Count: 4)
+        Cumulative Time : 70.36 seconds
+     9. GET /cloud/admin/clientsservices.php
+        Average Latency : 14489.13 ms (Count: 4)
+        Cumulative Time : 57.96 seconds
+    10. GET /cloud/admin/
+        Average Latency : 15425.25 ms (Count: 3)
+        Cumulative Time : 46.28 seconds
+    11. GET /cloud/includes/api.php
+        Average Latency : 6115.86 ms (Count: 7)
+        Cumulative Time : 42.81 seconds
+    12. POST /cloud/admin/configaddonmods.php
+        Average Latency : 38938.22 ms (Count: 1)
+        Cumulative Time : 38.94 seconds
+    13. GET /cloud/admin/clientsdomains.php
+        Average Latency : 12840.66 ms (Count: 3)
+        Cumulative Time : 38.52 seconds
+    14. GET /cloud/store/cloud-hosting/bronze-cloud
+        Average Latency : 2441.40 ms (Count: 14)
+        Cumulative Time : 34.18 seconds
+    15. GET /cloud/announcements/view/2020-01
+        Average Latency : 7418.33 ms (Count: 4)
+        Cumulative Time : 29.67 seconds
+    16. GET /cloud/announcements/view/older
+        Average Latency : 2962.95 ms (Count: 7)
+        Cumulative Time : 20.74 seconds
+    17. POST /cloud/clientarea.php
+        Average Latency : 10308.87 ms (Count: 2)
+        Cumulative Time : 20.62 seconds
+    18. GET /cloud/store/dedicated-servers
+        Average Latency : 3408.13 ms (Count: 6)
+        Cumulative Time : 20.45 seconds
+    19. GET /cloud/admin/clientssummary.php
+        Average Latency : 17711.24 ms (Count: 1)
+        Cumulative Time : 17.71 seconds
+    20. GET /cloud/admin/orders.php
+        Average Latency : 15227.02 ms (Count: 1)
+        Cumulative Time : 15.23 seconds
+    21. GET /cloud/announcements/page/1
+        Average Latency : 2798.20 ms (Count: 5)
+        Cumulative Time : 13.99 seconds
+    22. GET /cloud/login
+        Average Latency : 3116.38 ms (Count: 4)
+        Cumulative Time : 12.47 seconds
+    23. GET /cloud/index.php/store/website-builder
+        Average Latency : 4099.11 ms (Count: 3)
+        Cumulative Time : 12.30 seconds
+    24. GET /cloud//register.php
+        Average Latency : 2322.39 ms (Count: 5)
+        Cumulative Time : 11.61 seconds
+    25. GET /cloud/knowledgebase
+        Average Latency : 2863.93 ms (Count: 4)
+        Cumulative Time : 11.46 seconds
+    26. GET /cloud/store/cloud-hosting/gold-cloud
+        Average Latency : 3644.56 ms (Count: 3)
+        Cumulative Time : 10.93 seconds
+    27. GET /cloud/admin/addonmodules.php
+        Average Latency : 5402.96 ms (Count: 2)
+        Cumulative Time : 10.81 seconds
+    28. GET /cloud/store/email
+        Average Latency : 3064.83 ms (Count: 3)
+        Cumulative Time : 9.19 seconds
+    29. GET /cloud/domain/pricing
+        Average Latency : 2141.27 ms (Count: 4)
+        Cumulative Time : 8.57 seconds
+    30. GET /cloud/admin/setup
+        Average Latency : 6716.14 ms (Count: 1)
+        Cumulative Time : 6.72 seconds
+    31. GET /cloud/admin/clients.php
+        Average Latency : 6664.21 ms (Count: 1)
+        Cumulative Time : 6.66 seconds
+    32. GET /cloud/store/email/businesss
+        Average Latency : 6181.77 ms (Count: 1)
+        Cumulative Time : 6.18 seconds
+    33. GET /cloud/store/reseller-hosting/plantinum-reseller
+        Average Latency : 5957.93 ms (Count: 1)
+        Cumulative Time : 5.96 seconds
+    34. GET /cloud/store/managed-cloud-hosting
+        Average Latency : 2817.03 ms (Count: 2)
+        Cumulative Time : 5.63 seconds
+    35. GET /cloud/store/cloudoon-vault
+        Average Latency : 5609.94 ms (Count: 1)
+        Cumulative Time : 5.61 seconds
+    36. POST /cloud/modules/addons/olitt_whmcs_addon/olitt-connect.php
+        Average Latency : 2549.39 ms (Count: 2)
+        Cumulative Time : 5.10 seconds
+    37. GET /cloud/announcements/3/Have-a-Blessed-2020.html
+        Average Latency : 2253.86 ms (Count: 2)
+        Cumulative Time : 4.51 seconds
+    38. GET /cloud/announcements/view/2022-06
+        Average Latency : 2119.38 ms (Count: 2)
+        Cumulative Time : 4.24 seconds
+    39. GET /cloud/store/window-hosting
+        Average Latency : 3992.38 ms (Count: 1)
+        Cumulative Time : 3.99 seconds
+    40. GET /cloud/store/vps-hosting
+        Average Latency : 3109.67 ms (Count: 1)
+        Cumulative Time : 3.11 seconds
+    41. GET /cloud/store/managed-cloud-hosting/cloud-business
+        Average Latency : 2193.66 ms (Count: 1)
+        Cumulative Time : 2.19 seconds
+------------------------------------------------------------
+[*] Fetching all database queries (SQL) >= 200.0 ms...
+     1. select * from `tbladminlog` where `lastvisit` > ? group by `adminusername` order by `lastvisit` asc
+        Average Duration: 2548.92 ms (Count: 17)
+        Cumulative Time : 43.33 seconds
+     2. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:18:43' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 16060.45 ms (Count: 1)
+        Cumulative Time : 16.06 seconds
+     3. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:18:34' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 14485.07 ms (Count: 1)
+        Cumulative Time : 14.49 seconds
+     4. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:15:06' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 12857.22 ms (Count: 1)
+        Cumulative Time : 12.86 seconds
+     5. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:45:19' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 12548.37 ms (Count: 1)
+        Cumulative Time : 12.55 seconds
+     6. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:46:32' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11825.86 ms (Count: 1)
+        Cumulative Time : 11.83 seconds
+     7. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:19:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11775.48 ms (Count: 1)
+        Cumulative Time : 11.78 seconds
+     8. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:48:43' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11760.48 ms (Count: 1)
+        Cumulative Time : 11.76 seconds
+     9. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:48:28' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11262.11 ms (Count: 1)
+        Cumulative Time : 11.26 seconds
+    10. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:16:13' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11138.07 ms (Count: 1)
+        Cumulative Time : 11.14 seconds
+    11. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:45:40' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11099.94 ms (Count: 1)
+        Cumulative Time : 11.10 seconds
+    12. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:19:12' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 11076.47 ms (Count: 1)
+        Cumulative Time : 11.08 seconds
+    13. SELECT id FROM tbladminlog WHERE sessionid = 'bm3q15uv7u2tu2tihv6179v5do' AND lastvisit >= '2026-06-25 09:49:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 10751.28 ms (Count: 1)
+        Cumulative Time : 10.75 seconds
+    14. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:47:12' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 9753.58 ms (Count: 1)
+        Cumulative Time : 9.75 seconds
+    15. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:17:22' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 9549.13 ms (Count: 1)
+        Cumulative Time : 9.55 seconds
+    16. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:33:24' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 9485.74 ms (Count: 1)
+        Cumulative Time : 9.49 seconds
+    17. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:18:15' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 8889.48 ms (Count: 1)
+        Cumulative Time : 8.89 seconds
+    18. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:33:20' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 8357.26 ms (Count: 1)
+        Cumulative Time : 8.36 seconds
+    19. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:33:28' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 8293.06 ms (Count: 1)
+        Cumulative Time : 8.29 seconds
+    20. SELECT id FROM tbladminlog WHERE sessionid = 'ciabhpqojf4b18mq29hmohot8l' AND lastvisit >= '2026-06-25 09:49:08' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 8125.69 ms (Count: 1)
+        Cumulative Time : 8.13 seconds
+    21. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:02:57' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 8067.35 ms (Count: 1)
+        Cumulative Time : 8.07 seconds
+    22. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:14:05' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 7859.87 ms (Count: 1)
+        Cumulative Time : 7.86 seconds
+    23. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:42' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 7320.34 ms (Count: 1)
+        Cumulative Time : 7.32 seconds
+    24. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 10:35:56' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 7279.25 ms (Count: 1)
+        Cumulative Time : 7.28 seconds
+    25. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:35:19' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 7085.32 ms (Count: 1)
+        Cumulative Time : 7.09 seconds
+    26. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:23:58' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 7081.39 ms (Count: 1)
+        Cumulative Time : 7.08 seconds
+    27. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:01' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 7069.96 ms (Count: 1)
+        Cumulative Time : 7.07 seconds
+    28. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:38:39' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6944.83 ms (Count: 1)
+        Cumulative Time : 6.94 seconds
+    29. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:42:23' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6930.34 ms (Count: 1)
+        Cumulative Time : 6.93 seconds
+    30. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:00:42' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6857.71 ms (Count: 1)
+        Cumulative Time : 6.86 seconds
+    31. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 10:56:48' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6772.99 ms (Count: 1)
+        Cumulative Time : 6.77 seconds
+    32. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:35:26' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6754.50 ms (Count: 1)
+        Cumulative Time : 6.75 seconds
+    33. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:36:44' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6738.47 ms (Count: 1)
+        Cumulative Time : 6.74 seconds
+    34. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:35' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6736.40 ms (Count: 1)
+        Cumulative Time : 6.74 seconds
+    35. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:35:12' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6704.00 ms (Count: 1)
+        Cumulative Time : 6.70 seconds
+    36. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:05:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6680.24 ms (Count: 1)
+        Cumulative Time : 6.68 seconds
+    37. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:13:59' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6665.18 ms (Count: 1)
+        Cumulative Time : 6.67 seconds
+    38. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:14:39' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6663.44 ms (Count: 1)
+        Cumulative Time : 6.66 seconds
+    39. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:08' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6660.08 ms (Count: 1)
+        Cumulative Time : 6.66 seconds
+    40. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:35:03' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6641.44 ms (Count: 1)
+        Cumulative Time : 6.64 seconds
+    41. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:26:14' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6620.58 ms (Count: 1)
+        Cumulative Time : 6.62 seconds
+    42. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:27:19' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6585.17 ms (Count: 1)
+        Cumulative Time : 6.59 seconds
+    43. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:14:44' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6571.93 ms (Count: 1)
+        Cumulative Time : 6.57 seconds
+    44. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 10:09:49' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6570.69 ms (Count: 1)
+        Cumulative Time : 6.57 seconds
+    45. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 10:29:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6532.14 ms (Count: 1)
+        Cumulative Time : 6.53 seconds
+    46. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:56' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6490.24 ms (Count: 1)
+        Cumulative Time : 6.49 seconds
+    47. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:07:48' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6475.78 ms (Count: 1)
+        Cumulative Time : 6.48 seconds
+    48. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:14:54' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6475.75 ms (Count: 1)
+        Cumulative Time : 6.48 seconds
+    49. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:26' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6447.87 ms (Count: 1)
+        Cumulative Time : 6.45 seconds
+    50. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:34:20' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6447.25 ms (Count: 1)
+        Cumulative Time : 6.45 seconds
+    51. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:44:56' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6445.31 ms (Count: 1)
+        Cumulative Time : 6.45 seconds
+    52. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:33:52' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6441.59 ms (Count: 1)
+        Cumulative Time : 6.44 seconds
+    53. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:43:57' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6436.52 ms (Count: 1)
+        Cumulative Time : 6.44 seconds
+    54. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:43:38' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6429.31 ms (Count: 1)
+        Cumulative Time : 6.43 seconds
+    55. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 09:42:49' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6420.35 ms (Count: 1)
+        Cumulative Time : 6.42 seconds
+    56. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:11:02' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6392.71 ms (Count: 1)
+        Cumulative Time : 6.39 seconds
+    57. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:32:15' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6377.69 ms (Count: 1)
+        Cumulative Time : 6.38 seconds
+    58. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:43:47' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6355.84 ms (Count: 1)
+        Cumulative Time : 6.36 seconds
+    59. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:33:46' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6349.21 ms (Count: 1)
+        Cumulative Time : 6.35 seconds
+    60. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:10:05' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6349.00 ms (Count: 1)
+        Cumulative Time : 6.35 seconds
+    61. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 10:10:07' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6338.52 ms (Count: 1)
+        Cumulative Time : 6.34 seconds
+    62. SELECT id FROM tbladminlog WHERE sessionid = '8o32vl4nundrebb6e8e3se9vqg' AND lastvisit >= '2026-06-25 11:43:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6333.16 ms (Count: 1)
+        Cumulative Time : 6.33 seconds
+    63. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:28:51' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6289.69 ms (Count: 1)
+        Cumulative Time : 6.29 seconds
+    64. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:13:50' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6271.79 ms (Count: 1)
+        Cumulative Time : 6.27 seconds
+    65. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:30:35' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6241.30 ms (Count: 1)
+        Cumulative Time : 6.24 seconds
+    66. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:27:13' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6230.74 ms (Count: 1)
+        Cumulative Time : 6.23 seconds
+    67. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:21:00' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6198.89 ms (Count: 1)
+        Cumulative Time : 6.20 seconds
+    68. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:41:42' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6187.34 ms (Count: 1)
+        Cumulative Time : 6.19 seconds
+    69. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 09:42:16' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6144.63 ms (Count: 1)
+        Cumulative Time : 6.14 seconds
+    70. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:09:18' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6132.00 ms (Count: 1)
+        Cumulative Time : 6.13 seconds
+    71. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:03:05' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6120.49 ms (Count: 1)
+        Cumulative Time : 6.12 seconds
+    72. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 09:42:43' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6084.13 ms (Count: 1)
+        Cumulative Time : 6.08 seconds
+    73. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:12:09' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6070.94 ms (Count: 1)
+        Cumulative Time : 6.07 seconds
+    74. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 09:42:57' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6065.14 ms (Count: 1)
+        Cumulative Time : 6.07 seconds
+    75. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:14:37' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6061.96 ms (Count: 1)
+        Cumulative Time : 6.06 seconds
+    76. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:21:15' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6056.19 ms (Count: 1)
+        Cumulative Time : 6.06 seconds
+    77. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 09:42:26' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6047.11 ms (Count: 1)
+        Cumulative Time : 6.05 seconds
+    78. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:40:10' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6040.84 ms (Count: 1)
+        Cumulative Time : 6.04 seconds
+    79. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:27:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 6003.09 ms (Count: 1)
+        Cumulative Time : 6.00 seconds
+    80. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:13:31' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5996.45 ms (Count: 1)
+        Cumulative Time : 6.00 seconds
+    81. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 11:59:41' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5994.65 ms (Count: 1)
+        Cumulative Time : 5.99 seconds
+    82. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 11:59:08' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5986.10 ms (Count: 1)
+        Cumulative Time : 5.99 seconds
+    83. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:13:25' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5980.71 ms (Count: 1)
+        Cumulative Time : 5.98 seconds
+    84. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:20:21' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5947.61 ms (Count: 1)
+        Cumulative Time : 5.95 seconds
+    85. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:22:30' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5930.51 ms (Count: 1)
+        Cumulative Time : 5.93 seconds
+    86. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:03:31' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5907.55 ms (Count: 1)
+        Cumulative Time : 5.91 seconds
+    87. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:02:45' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5898.55 ms (Count: 1)
+        Cumulative Time : 5.90 seconds
+    88. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:02:39' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5888.73 ms (Count: 1)
+        Cumulative Time : 5.89 seconds
+    89. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:03:25' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5869.52 ms (Count: 1)
+        Cumulative Time : 5.87 seconds
+    90. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 09:43:03' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5858.18 ms (Count: 1)
+        Cumulative Time : 5.86 seconds
+    91. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:03:18' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5857.51 ms (Count: 1)
+        Cumulative Time : 5.86 seconds
+    92. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:39:27' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5855.77 ms (Count: 1)
+        Cumulative Time : 5.86 seconds
+    93. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:03:13' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5818.57 ms (Count: 1)
+        Cumulative Time : 5.82 seconds
+    94. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 11:58:58' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5814.12 ms (Count: 1)
+        Cumulative Time : 5.81 seconds
+    95. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:13:44' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5715.89 ms (Count: 1)
+        Cumulative Time : 5.72 seconds
+    96. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:24:49' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5690.52 ms (Count: 1)
+        Cumulative Time : 5.69 seconds
+    97. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 11:59:35' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5626.42 ms (Count: 1)
+        Cumulative Time : 5.63 seconds
+    98. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:23:16' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5619.13 ms (Count: 1)
+        Cumulative Time : 5.62 seconds
+    99. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 12:13:44' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5617.30 ms (Count: 1)
+        Cumulative Time : 5.62 seconds
+    100. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:03:47' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5586.62 ms (Count: 1)
+        Cumulative Time : 5.59 seconds
+    101. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:12:56' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5573.99 ms (Count: 1)
+        Cumulative Time : 5.57 seconds
+    102. SELECT id FROM tbladminlog WHERE sessionid = 'c6d3p4cf2fnrtb3k5a5kj0aed0' AND lastvisit >= '2026-06-25 09:21:02' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5553.12 ms (Count: 1)
+        Cumulative Time : 5.55 seconds
+    103. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 11:59:22' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5452.66 ms (Count: 1)
+        Cumulative Time : 5.45 seconds
+    104. SELECT id FROM tbladminlog WHERE sessionid = 'cp9b6qfi07j736ild4jhtpios3' AND lastvisit >= '2026-06-24 11:59:28' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5448.66 ms (Count: 1)
+        Cumulative Time : 5.45 seconds
+    105. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:19:35' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5300.69 ms (Count: 1)
+        Cumulative Time : 5.30 seconds
+    106. SELECT id FROM tbladminlog WHERE sessionid = '9p3f3tu6561hhgu4anf6uabn15' AND lastvisit >= '2026-06-25 11:18:52' AND logouttime = '0000-00-00 00:00:00' ORDER BY `id` DESC
+        Average Duration: 5234.19 ms (Count: 1)
+        Cumulative Time : 5.23 seconds
+    107. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Vanessa' AND lastvisit < '2026-06-25 10:56:48' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 4142.43 ms (Count: 1)
+        Cumulative Time : 4.14 seconds
+    108. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Vanessa' AND lastvisit < '2026-06-25 10:09:49' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 4088.32 ms (Count: 1)
+        Cumulative Time : 4.09 seconds
+    109. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Vanessa' AND lastvisit < '2026-06-25 10:29:27' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 3819.82 ms (Count: 1)
+        Cumulative Time : 3.82 seconds
+    110. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='MosesA' AND lastvisit < '2026-06-25 09:18:15' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 3751.66 ms (Count: 1)
+        Cumulative Time : 3.75 seconds
+    111. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Vanessa' AND lastvisit < '2026-06-25 09:42:16' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 3665.46 ms (Count: 1)
+        Cumulative Time : 3.67 seconds
+    112. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Bravin' AND lastvisit < '2026-06-24 11:58:58' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 3324.71 ms (Count: 1)
+        Cumulative Time : 3.32 seconds
+    113. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Kinyua' AND lastvisit < '2026-06-25 09:49:08' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 3324.13 ms (Count: 1)
+        Cumulative Time : 3.32 seconds
+    114. UPDATE tbladminlog SET logouttime = lastvisit WHERE adminusername='Kinyua' AND lastvisit < '2026-06-25 09:49:27' AND logouttime='0000-00-00 00:00:00'
+        Average Duration: 3118.64 ms (Count: 1)
+        Cumulative Time : 3.12 seconds
+    115. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625120131','20260625120131','10.42.1.144','gnj6dqfmaust391nf4pio02rie')
+        Average Duration: 433.97 ms (Count: 1)
+        Cumulative Time : 0.43 seconds
+    116. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625103129','20260625103129','10.42.1.144','6l7uevmkcr23cvcleeksgsjp0r')
+        Average Duration: 431.54 ms (Count: 1)
+        Cumulative Time : 0.43 seconds
+    117. SELECT status,COUNT(*) FROM tbldomains WHERE userid=705 GROUP BY status
+        Average Duration: 214.33 ms (Count: 2)
+        Cumulative Time : 0.43 seconds
+    118. SELECT COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblproducts.id=tblhosting.packageid INNER JOIN tblproductgroups ON tblproductgroups.id=tblproducts.gid WHERE `tblhosting`.`userid`='774'
+        Average Duration: 211.60 ms (Count: 2)
+        Cumulative Time : 0.42 seconds
+    119. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='145'
+        Average Duration: 211.55 ms (Count: 2)
+        Cumulative Time : 0.42 seconds
+    120. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='3240'
+        Average Duration: 211.48 ms (Count: 2)
+        Cumulative Time : 0.42 seconds
+    121. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2268'
+        Average Duration: 418.10 ms (Count: 1)
+        Cumulative Time : 0.42 seconds
+    122. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625093100','20260625093100','10.42.1.144','vmnnbj0ea1bpdsvbefsb9d5smf')
+        Average Duration: 416.20 ms (Count: 1)
+        Cumulative Time : 0.42 seconds
+    123. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2187'
+        Average Duration: 207.70 ms (Count: 2)
+        Cumulative Time : 0.42 seconds
+    124. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='270'
+        Average Duration: 411.71 ms (Count: 1)
+        Cumulative Time : 0.41 seconds
+    125. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625112112','20260625112112','10.42.1.144','gf7b4njo6g5qn4fik97833b2bm')
+        Average Duration: 291.15 ms (Count: 1)
+        Cumulative Time : 0.29 seconds
+    126. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625105056','20260625105056','10.42.1.144','u4ruhn3b6h56eattegcar0m2vq')
+        Average Duration: 271.83 ms (Count: 1)
+        Cumulative Time : 0.27 seconds
+    127. SELECT stage,COUNT(*) FROM tblquotes WHERE userid=900 GROUP BY stage
+        Average Duration: 240.98 ms (Count: 1)
+        Cumulative Time : 0.24 seconds
+    128. SELECT status,COUNT(*) FROM tbldomains WHERE userid=944 GROUP BY status
+        Average Duration: 236.47 ms (Count: 1)
+        Cumulative Time : 0.24 seconds
+    129. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625115109','20260625115109','10.42.1.144','u0d4jfhg5k0r5q1f37pn0rlia7')
+        Average Duration: 234.06 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    130. SELECT tblhosting.*,tblproductgroups.name as group_name,tblproductgroups.id AS group_id,tblproducts.name, tblorders.ordernum,(SELECT CONCAT(name,'|',ipaddress,'|',hostname) FROM tblservers WHERE tblservers.id=tblhosting.server) AS serverdetails,(SELECT tblpaymentgateways.value FROM tblpaymentgateways WHERE tblpaymentgateways.gateway=tblhosting.paymentmethod AND tblpaymentgateways.setting='name' LIMIT 1) AS paymentmethodname FROM tblhosting INNER JOIN tblproducts ON tblproducts.id=tblhosting.packageid INNER JOIN tblproductgroups ON tblproductgroups.id=tblproducts.gid LEFT JOIN tblorders ON tblhosting.orderid = tblorders.id WHERE `tblhosting`.`userid`='373' ORDER BY `tblhosting`.`id` ASC LIMIT 0,50
+        Average Duration: 229.41 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    131. SELECT * FROM tbldomains WHERE `orderid`='529'
+        Average Duration: 229.07 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    132. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2574'
+        Average Duration: 228.61 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    133. SELECT stage,COUNT(*) FROM tblquotes WHERE userid=1291 GROUP BY stage
+        Average Duration: 228.59 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    134. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625100916','20260625100916','10.42.1.144','dua6omj8djn5g49in9lip2r4kk')
+        Average Duration: 227.34 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    135. SELECT * FROM tbldomains WHERE `orderid`='916'
+        Average Duration: 227.34 ms (Count: 1)
+        Cumulative Time : 0.23 seconds
+    136. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625113101','20260625113101','10.42.1.144','rqtnufcsq9k2064076d5e5p0ou')
+        Average Duration: 224.68 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    137. INSERT INTO tblactivitylog (`date`,`description`,`user`,`userid`,`ipaddr`,`user_id`,`admin_id`) VALUES ('20260625094215','Advanced Domain Search: ES _mget request completed in 1353ms, docs returned: 32','System','0','','0','0')
+        Average Duration: 224.30 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    138. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625105122','20260625105122','10.42.1.144','0f9aug4jh1u03bp38vqvl591im')
+        Average Duration: 224.24 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    139. UPDATE tbladdonmodules SET `value`='' WHERE module='advanced_domain_search' AND setting='hero_subtitle'
+        Average Duration: 224.24 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    140. UPDATE tbladminlog SET `lastvisit`='20260625113440' WHERE id='4894576'
+        Average Duration: 224.12 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    141. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625113102','20260625113102','10.42.1.144','vmg1f3qkjalj8b01mrg7nqrelp')
+        Average Duration: 224.06 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    142. SELECT o.*, p.value AS paymentmethodname, i.status AS paymentstatus, CONCAT(c.firstname,' ',c.lastname) AS name FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=280 ORDER BY o.id DESC LIMIT 0,50
+        Average Duration: 223.40 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    143. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625111213','20260625111213','10.42.1.144','nhn54svk4gqutvvatr6vlkr7fu')
+        Average Duration: 223.38 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    144. INSERT INTO tblactivitylog (`date`,`description`,`user`,`userid`,`ipaddr`,`user_id`,`admin_id`) VALUES ('20260625120210','Addon Module Settings Modified - Account Restore  - Initial setting of SSH Private Key Path to \'/var/www/html/cloud/modules/addons/account_restore/id_ed25519\', Initial setting of Restore Script Path to \'/home/truehost/custom-scripts/restore_archived_cpanel_tke.py\', Initial setting of Restore Python Path to \'/opt/alt/python38/bin/python3\', Initial setting of Restore Timeout Seconds to \'1800\', Initial setting of Secondary SSH Port to \'1624\', Initial setting of SSH Port to \'1624\', Initial setting of Secondary SSH Username to \'root\', Initial setting of Middleman Server to \'jmc.truehost.cloud\', Initial setting of Middleman SSH Port to \'1624\', Initial setting of Middleman SFTP User to \'backuptasks\', Initial setting of Middleman Upload Directory to \'/home/backuptasks/backupsuspended\', Initial setting of SupportPal Base URL to \'https://tickets.olitt.com\', SupportPal API Tok
+        Average Duration: 223.10 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    145. SELECT o.*, p.value AS paymentmethodname, i.status AS paymentstatus, CONCAT(c.firstname,' ',c.lastname) AS name FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=411 ORDER BY o.id DESC LIMIT 0,50
+        Average Duration: 222.60 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    146. SELECT o.*, p.value AS paymentmethodname, i.status AS paymentstatus, CONCAT(c.firstname,' ',c.lastname) AS name FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=825 ORDER BY o.id DESC LIMIT 0,50
+        Average Duration: 222.36 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    147. INSERT INTO tbladdonmodules (`module`,`setting`,`value`) VALUES ('RSThemes','access','1,2,3')
+        Average Duration: 221.84 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    148. UPDATE tbladdonmodules SET `value`='' WHERE module='advanced_domain_search' AND setting='dm_token'
+        Average Duration: 221.67 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    149. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625115427','20260625115427','178.63.55.102','v3dq91mjf5h9v3p25ot449l6u1')
+        Average Duration: 221.52 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    150. INSERT INTO tblactivitylog (`date`,`description`,`user`,`userid`,`ipaddr`,`user_id`,`admin_id`) VALUES ('20260625092507','Advanced Domain Search: ES _mget request completed in 522ms, docs returned: 9','System','0','','0','0')
+        Average Duration: 221.51 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    151. UPDATE tbladdonmodules SET `value`='90' WHERE module='GoogleAnalytics' AND setting='tracking_retention_days'
+        Average Duration: 221.47 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    152. SELECT * FROM tblhostingconfigoptions WHERE `relid`='482'
+        Average Duration: 221.33 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    153. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=572 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 221.28 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    154. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625111107','20260625111107','10.42.1.144','mgll02fj7bec0mg62revcmtkun')
+        Average Duration: 221.09 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    155. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625104154','20260625104154','10.42.1.144','lko36fvnl6trh280qg8ds9d66h')
+        Average Duration: 220.98 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    156. SELECT COUNT(o.id) FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=442
+        Average Duration: 220.77 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    157. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625103050','20260625103050','10.42.1.144','c9qoi95kdpis8jm4bqaoi7nqs3')
+        Average Duration: 220.53 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    158. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625110242','20260625110242','10.42.1.144','46ug48bbhn4kd0o8df1cb9ffdm')
+        Average Duration: 220.43 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    159. UPDATE tbladdonmodules SET `value`='' WHERE module='GoogleAnalytics' AND setting='queue_enabled'
+        Average Duration: 220.28 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    160. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625115148','20260625115148','10.42.1.144','gq1jmtp5p8hck2974v7achrv2e')
+        Average Duration: 220.25 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    161. SELECT status,COUNT(*) FROM tbldomains WHERE userid=291 GROUP BY status
+        Average Duration: 220.25 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    162. UPDATE tbladdonmodules SET `value`='' WHERE module='RSThemes' AND setting='dbrollback'
+        Average Duration: 220.15 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    163. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='1119'
+        Average Duration: 219.99 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    164. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625102131','20260625102131','10.42.1.144','v0bnvfk937nnc6ih6afe48qda4')
+        Average Duration: 219.70 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    165. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625092224','20260625092224','10.42.1.144','aodmr5t9tr6lk6n5skdkfc06lv')
+        Average Duration: 219.66 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    166. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='74'
+        Average Duration: 219.57 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    167. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625111312','20260625111312','10.42.1.144','oos41jt5114ajfas6c11m4q6rd')
+        Average Duration: 219.55 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    168. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625115753','20260625115753','136.243.171.241','sflq3dr63on0hra5s7ubinid8e')
+        Average Duration: 219.54 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    169. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625102203','20260625102203','10.42.1.144','qfuhopjs2cu50pmljv3nnjagrd')
+        Average Duration: 219.53 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    170. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625112212','20260625112212','10.42.1.144','9fpnvmctprnsmjf3b5bgl94j8k')
+        Average Duration: 219.31 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    171. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625104119','20260625104119','10.42.1.144','7t3vk55a55sc5v346kd9k7oqbc')
+        Average Duration: 219.28 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    172. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625112215','20260625112215','10.42.1.144','qr8koc4g0t2jtckgg1tri964c3')
+        Average Duration: 219.28 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    173. SELECT * FROM tblupgrades WHERE `orderid`='123'
+        Average Duration: 219.22 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    174. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=1176 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 219.19 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    175. UPDATE tbladdonmodules SET `value`='5' WHERE module='advanced_domain_search' AND setting='es_connect_timeout'
+        Average Duration: 219.17 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    176. SELECT o.*, p.value AS paymentmethodname, i.status AS paymentstatus, CONCAT(c.firstname,' ',c.lastname) AS name FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=876 ORDER BY o.id DESC LIMIT 0,50
+        Average Duration: 219.16 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    177. SELECT * FROM tblupgrades WHERE `orderid`='635'
+        Average Duration: 219.08 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    178. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='460'
+        Average Duration: 219.07 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    179. SELECT * FROM tblupgrades WHERE `orderid`='677'
+        Average Duration: 218.98 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    180. SELECT stage,COUNT(*) FROM tblquotes WHERE userid=709 GROUP BY stage
+        Average Duration: 218.94 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    181. SELECT status,COUNT(*) FROM tbldomains WHERE userid=532 GROUP BY status
+        Average Duration: 218.94 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    182. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625110205','20260625110205','10.42.1.144','t893argsg4s7rkr6p35hm8ak4b')
+        Average Duration: 218.85 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    183. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625100130','20260625100130','10.42.1.144','vpsuulp8hc2a48hg3aup9c2uui')
+        Average Duration: 218.76 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    184. SELECT * FROM tbldomains WHERE `orderid`='741'
+        Average Duration: 218.73 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    185. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=417 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 218.69 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    186. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=960 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 218.69 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    187. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625113114','20260625113114','10.42.1.144','aa7k17t75k76b7rvebrh022mad')
+        Average Duration: 218.64 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    188. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625120226','20260625120226','10.42.1.144','435gun1d26f38iubf8qvkg2mhv')
+        Average Duration: 218.59 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    189. UPDATE tbladminlog SET `lastvisit`='20260625114949' WHERE id='4895513'
+        Average Duration: 218.42 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    190. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625101207','20260625101207','10.42.1.144','2ln3fkgl8pes2a1f65fraeak2d')
+        Average Duration: 218.37 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    191. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625111332','20260625111332','10.42.1.144','k78epduhtg2380a17ddj69h760')
+        Average Duration: 218.31 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    192. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625105033','20260625105033','10.42.1.144','g7gq85v4gola3g3g1ho40nb5nf')
+        Average Duration: 218.30 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    193. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625105223','20260625105223','10.42.1.144','dkrf0le4d92uq5e4no8ahoknv4')
+        Average Duration: 218.24 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    194. SELECT * FROM tblupgrades WHERE `orderid`='462'
+        Average Duration: 218.22 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    195. SELECT COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblproducts.id=tblhosting.packageid INNER JOIN tblproductgroups ON tblproductgroups.id=tblproducts.gid WHERE `tblhosting`.`userid`='411'
+        Average Duration: 218.12 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    196. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625115722','20260625115722','178.63.55.102','78su4jnmqm85a758an4rif051l')
+        Average Duration: 218.09 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    197. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625095313','20260625095313','10.42.1.144','894i4nk1dhl5n0f9jk5a1kifeq')
+        Average Duration: 218.02 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    198. UPDATE tbladdonmodules SET `value`='10' WHERE module='advanced_domain_search' AND setting='es_timeout'
+        Average Duration: 217.82 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    199. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='1041'
+        Average Duration: 217.82 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    200. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625094017','20260625094017','54.38.113.212','af3r97j3vkdba2hncujh7o47c2')
+        Average Duration: 217.80 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    201. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625114237','20260625114237','10.42.1.144','g4jje53as1mg7aacn7u0bkoine')
+        Average Duration: 217.62 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    202. SELECT * FROM tblupgrades WHERE `orderid`='765'
+        Average Duration: 217.38 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    203. SELECT * FROM tblupgrades WHERE `orderid`='244'
+        Average Duration: 217.26 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    204. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625110313','20260625110313','10.42.1.144','r3t3bgk939t3ci5pqegc1bju44')
+        Average Duration: 217.24 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    205. INSERT INTO tbladdonmodules (`module`,`setting`,`value`) VALUES ('account_restore','middleman_user','backuptasks')
+        Average Duration: 217.22 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    206. SELECT stage,COUNT(*) FROM tblquotes WHERE userid=787 GROUP BY stage
+        Average Duration: 217.11 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    207. SELECT * FROM tblupgrades WHERE `orderid`='1083'
+        Average Duration: 216.93 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    208. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625100132','20260625100132','10.42.1.144','jelpeln7p7l1l0mj5u6qmhsusp')
+        Average Duration: 216.93 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    209. SELECT * FROM tblhosting WHERE `orderid`='767'
+        Average Duration: 216.75 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    210. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625120311','20260625120311','10.42.1.144','1uuc9nojk6srn5ued2dk37i7tt')
+        Average Duration: 216.55 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    211. SELECT COUNT(o.id) FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=613
+        Average Duration: 216.55 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    212. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='517'
+        Average Duration: 216.51 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    213. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625110243','20260625110243','10.42.1.144','lkog3acrjsdqfb8fhe0cfb1p1p')
+        Average Duration: 216.43 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    214. SELECT status,COUNT(*) FROM tbldomains WHERE userid=535 GROUP BY status
+        Average Duration: 216.28 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    215. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625111308','20260625111308','10.42.1.144','qprg2lsqjgngjj34495otskn7t')
+        Average Duration: 216.22 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    216. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625115433','20260625115433','178.63.55.102','toql69d46m90epvhp3oh32jng3')
+        Average Duration: 216.22 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    217. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625115114','20260625115114','10.42.1.144','3st5gc2pqimgqsa878p0icvkq0')
+        Average Duration: 216.18 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    218. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625103019','20260625103019','10.42.1.144','d4o4m12uve2r072fhed3qhnohg')
+        Average Duration: 216.08 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    219. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625113128','20260625113128','10.42.1.144','uqb885kh7bsbgsf60da8h39f20')
+        Average Duration: 216.07 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    220. SELECT * FROM tblupgrades WHERE `orderid`='891'
+        Average Duration: 216.01 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    221. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='1132'
+        Average Duration: 215.99 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    222. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625101035','20260625101035','10.42.1.144','1an4kl1heg3m182r5gigdt88hd')
+        Average Duration: 215.87 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    223. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=1277 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 215.82 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    224. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=687 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 215.80 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    225. SELECT stage,COUNT(*) FROM tblquotes WHERE userid=1276 GROUP BY stage
+        Average Duration: 215.73 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    226. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625104143','20260625104143','10.42.1.144','0506ik0acsria48bfr8d63q4r4')
+        Average Duration: 215.56 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    227. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625110828','20260625110828','10.42.1.144','4tnm8emib3vinftc9lbgr3tnrn')
+        Average Duration: 215.54 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    228. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625103619','20260625103619','10.42.1.144','hkr0dngqgkj03e9veffueqs2r7')
+        Average Duration: 215.50 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    229. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625103023','20260625103023','10.42.1.144','s49pnac6dffm277rvq3946js09')
+        Average Duration: 215.24 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    230. UPDATE tbladdonmodules SET `value`='ns2.cloudoon.net' WHERE module='olitt_ai_sites' AND setting='truehost_ns2'
+        Average Duration: 215.18 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    231. SELECT status,COUNT(*) FROM tbldomains WHERE userid=331 GROUP BY status
+        Average Duration: 215.17 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    232. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625101152','20260625101152','10.42.1.144','6jdov2r7blitr90g502hj2c8jr')
+        Average Duration: 215.13 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    233. SELECT tblproductconfigoptions.* FROM tblproductconfigoptions INNER JOIN tblproductconfiglinks ON tblproductconfiglinks.gid=tblproductconfigoptions.gid WHERE `pid`='125' AND `hidden`='0' ORDER BY `tblproductconfigoptions`.`order` ASC,`tblproductconfigoptions`.`id` ASC
+        Average Duration: 215.07 ms (Count: 1)
+        Cumulative Time : 0.22 seconds
+    234. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='362'
+        Average Duration: 214.92 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    235. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625101309','20260625101309','10.42.1.144','7dnglcehc76tvp558p8osrurjs')
+        Average Duration: 214.75 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    236. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625092319','20260625092319','10.42.1.144','2o1386m556u36b1hvmsuthdv2k')
+        Average Duration: 214.55 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    237. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625112147','20260625112147','10.42.1.144','c2poh7jjgjvfeiluavgv4krcb9')
+        Average Duration: 214.37 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    238. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625112048','20260625112048','10.42.1.144','iu7r71tdutd3met3055hah2ie4')
+        Average Duration: 214.36 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    239. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='516'
+        Average Duration: 214.01 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    240. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625114121','20260625114121','10.42.1.144','r1jmnhe99qcbvhk4l64dap2dbl')
+        Average Duration: 213.84 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    241. SELECT * FROM tblupgrades WHERE `orderid`='753'
+        Average Duration: 213.81 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    242. SELECT stage,COUNT(*) FROM tblquotes WHERE userid=1327 GROUP BY stage
+        Average Duration: 213.80 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    243. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625100918','20260625100918','10.42.1.144','q9fdo4fna9iptve65f85r95bri')
+        Average Duration: 213.79 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    244. SELECT * FROM tblhostingaddons WHERE `orderid`='556'
+        Average Duration: 213.73 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    245. SELECT * FROM tblupgrades WHERE `orderid`='299'
+        Average Duration: 213.69 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    246. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=861 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 213.57 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    247. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625100824','20260625100824','10.42.1.144','0m6gcvdep57kpkosf1600hmgbj')
+        Average Duration: 213.45 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    248. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625111315','20260625111315','10.42.1.144','rt9l762dgjas1cql1560nm0f9o')
+        Average Duration: 213.04 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    249. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='306'
+        Average Duration: 212.97 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    250. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2625'
+        Average Duration: 212.82 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    251. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625113045','20260625113045','10.42.1.144','6ehpg87ohhrdsg10nr9cb38tqa')
+        Average Duration: 212.81 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    252. SELECT COUNT(o.id) FROM tblorders o
+    LEFT JOIN tblclients c ON o.userid=c.id
+    LEFT JOIN tblpaymentgateways p ON o.paymentmethod=p.gateway AND p.setting='name'
+    LEFT JOIN tblinvoices i ON o.invoiceid=i.id WHERE o.userid=433
+        Average Duration: 212.78 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    253. SELECT * FROM tblhosting WHERE `orderid`='911'
+        Average Duration: 212.51 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    254. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=709 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 212.48 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    255. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625092903','20260625092903','10.42.1.144','bk8qm62d1sgo0u8bsd4b87cpc8')
+        Average Duration: 212.06 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    256. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=900 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 212.03 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    257. SELECT id FROM tblaffiliates WHERE `clientid`='45'
+        Average Duration: 211.82 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    258. SELECT tblproducts.type,domainstatus,COUNT(*) FROM tblhosting INNER JOIN tblproducts ON tblhosting.packageid=tblproducts.id WHERE tblhosting.userid=944 GROUP BY domainstatus,tblproducts.type
+        Average Duration: 211.68 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    259. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='32'
+        Average Duration: 211.43 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    260. SELECT COUNT(*) FROM tblaffiliatesaccounts INNER JOIN tblaffiliates ON tblaffiliatesaccounts.affiliateid=tblaffiliates.id WHERE `clientid`='401'
+        Average Duration: 211.34 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    261. SELECT * FROM tblhosting WHERE `orderid`='81'
+        Average Duration: 210.74 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    262. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('Zola','20260625092748','20260625092748','10.42.1.144','bf03pk4pb6v7p1olts8ombdvbj')
+        Average Duration: 209.88 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    263. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2230'
+        Average Duration: 209.61 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    264. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='400'
+        Average Duration: 209.39 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    265. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='3414'
+        Average Duration: 208.99 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    266. select count(*) as aggregate from `tblquotes` where `userid` = ? and date(`validuntil`) > ?
+        Average Duration: 208.26 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    267. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='1290'
+        Average Duration: 208.06 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    268. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2355'
+        Average Duration: 207.83 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    269. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2220'
+        Average Duration: 207.69 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    270. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='1229'
+        Average Duration: 207.54 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    271. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625095132','20260625095132','54.38.113.212','a4to13t92hqanc83ls5iug0vk5')
+        Average Duration: 207.13 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    272. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='1100'
+        Average Duration: 206.63 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    273. INSERT INTO tbladminlog (`adminusername`,`logintime`,`lastvisit`,`ipaddress`,`sessionid`) VALUES ('EliasG','20260625092056','20260625092056','10.42.1.144','eom2f15nr3sjo9sbnn908uesv6')
+        Average Duration: 206.48 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    274. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='2887'
+        Average Duration: 206.17 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    275. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='3214'
+        Average Duration: 206.09 ms (Count: 1)
+        Cumulative Time : 0.21 seconds
+    276. UPDATE tbladminlog SET `lastvisit`='20260625093439' WHERE id='4891903'
+        Average Duration: 203.84 ms (Count: 1)
+        Cumulative Time : 0.20 seconds
+    277. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='1321'
+        Average Duration: 203.40 ms (Count: 1)
+        Cumulative Time : 0.20 seconds
+    278. SELECT * FROM tblinvoiceitems WHERE `invoiceid`='182'
+        Average Duration: 202.30 ms (Count: 1)
+        Cumulative Time : 0.20 seconds
+------------------------------------------------------------
+[*] Fetching all external network requests (APIs) >= 2000.0 ms...
+     1. GET httpbin.org
+        Average Duration: 10005.81 ms (Count: 36)
+        Cumulative Time : 360.21 seconds
+     2. HEAD benchmarkfze.com
+        Average Duration: 6760.58 ms (Count: 1)
+        Cumulative Time : 6.76 seconds
+     3. POST olitt.com
+        Average Duration: 2320.06 ms (Count: 2)
+        Cumulative Time : 4.64 seconds
+------------------------------------------------------------
+[*] Fetching all high-impact dependencies (Prioritized by Cumulative Impact)...
+     1. [db] select * from `tblconfiguration` where `setting` = ? limit 1
+        Average Duration: 5.70 ms (Count: 81155)
+        Cumulative Time : 462.76 seconds
+     2. [external] GET httpbin.org
+        Average Duration: 10005.81 ms (Count: 36)
+        Cumulative Time : 360.21 seconds
+     3. [external] POST elastic.jisort.com
+        Average Duration: 1235.28 ms (Count: 146)
+        Cumulative Time : 180.35 seconds
+     4. [db] select * from `rsthemes_menus_content` where `rsthemes_menus_content`.`id` = ? and `rsthemes_menus_content`.`id` is not null limit 1
+        Average Duration: 3.68 ms (Count: 35720)
+        Cumulative Time : 131.63 seconds
+     5. [db] select * from `rstheme_themes` where `name` = ? limit 1
+        Average Duration: 3.27 ms (Count: 37935)
+        Cumulative Time : 123.95 seconds
+     6. [db] select * from `tblcurrencies` where `default` = ? limit 1
+        Average Duration: 3.25 ms (Count: 35570)
+        Cumulative Time : 115.61 seconds
+     7. [db] select * from `rsthemes_menus_types` where `rsthemes_menus_types`.`id` = ? limit 1
+        Average Duration: 3.41 ms (Count: 33663)
+        Cumulative Time : 114.86 seconds
+     8. [db] select * from `tblproducts` where `id` = ? order by `tblproducts`.`order` asc, `tblproducts`.`id` asc limit 1
+        Average Duration: 2.99 ms (Count: 27899)
+        Cumulative Time : 83.43 seconds
+     9. [db] select * from `rsthemes_product_pricing_cache` where `gid` = ? and `currency` = ? order by `price` asc limit 1
+        Average Duration: 2.76 ms (Count: 27848)
+        Cumulative Time : 76.81 seconds
+    10. [db] select * from `tblconfiguration`
+        Average Duration: 9.77 ms (Count: 7469)
+        Cumulative Time : 72.96 seconds
+    11. [db] select * from `tblmarketconnect_services` where `status` = ? and `name` = ? limit 1
+        Average Duration: 55.65 ms (Count: 1220)
+        Cumulative Time : 67.89 seconds
+    12. [db] select `data` from `tbltransientdata` where `name` = ? and `expires` > ? limit 1
+        Average Duration: 5.30 ms (Count: 10063)
+        Cumulative Time : 53.31 seconds
+    13. [db] select * from `rsthemes_menus_items` where `rsthemes_menus_items`.`parent_id` = ? and `rsthemes_menus_items`.`parent_id` is not null
+        Average Duration: 3.27 ms (Count: 16130)
+        Cumulative Time : 52.73 seconds
+    14. [db] select * from `rsthemes_pages` where `id` = ? limit 1
+        Average Duration: 3.20 ms (Count: 14405)
+        Cumulative Time : 46.03 seconds
+    15. [db] select `migration` from `modwMigrations` where `module` = ? and `type` = ? order by `batch` asc, `migration` asc
+        Average Duration: 3.00 ms (Count: 14905)
+        Cumulative Time : 44.64 seconds
+    16. [db] select * from `tbladminlog` where `lastvisit` > ? group by `adminusername` order by `lastvisit` asc
+        Average Duration: 2548.92 ms (Count: 17)
+        Cumulative Time : 43.33 seconds
+    17. [db] select count(*) as aggregate from `tblconfiguration` where `setting` = ? and `value` like ?
+        Average Duration: 3.19 ms (Count: 13565)
+        Cumulative Time : 43.23 seconds
+    18. [db] select * from `rsthemes_displays` where `active` = ? limit 1
+        Average Duration: 5.15 ms (Count: 8024)
+        Cumulative Time : 41.30 seconds
+    19. [db] SELECT id FROM tblbannedips WHERE ip='10.42.1.144' OR ip='10.42.1.*' OR ip='10.42.*.*' ORDER BY id DESC
+        Average Duration: 5.77 ms (Count: 6638)
+        Cumulative Time : 38.32 seconds
+    20. [db] INSERT INTO `tblsessions` SET session_id = ?, payload = ?, last_activity = ? ON DUPLICATE KEY UPDATE session_id = VALUES(session_id), payload = VALUES(payload), last_activity = VALUES(last_activity)
+        Average Duration: 4.68 ms (Count: 7434)
+        Cumulative Time : 34.82 seconds
+============================================================
+Execution complete.

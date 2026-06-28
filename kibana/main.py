@@ -148,6 +148,7 @@ def fetch_slowest_transactions(start_time_iso):
                     "count": b["doc_count"],
                     "avg_ms": avg_ms
                 })
+        transactions.sort(key=lambda x: x["avg_ms"] * x["count"], reverse=True)
         return transactions
     except Exception:
         return []
@@ -197,8 +198,68 @@ def fetch_slowest_spans(start_time_iso, span_type="db"):
                     "count": b["doc_count"],
                     "avg_ms": avg_ms
                 })
+        spans.sort(key=lambda x: x["avg_ms"] * x["count"], reverse=True)
         return spans
     except Exception:
+        return []
+
+def fetch_high_impact_dependencies(start_time_iso):
+    """Fetches all spans (dependencies) grouped by type and name, prioritized by cumulative impact."""
+    query = {
+        "size": 0,
+        "query": {
+            "bool": {
+                "must": [
+                    {"term": {"service.name": SERVICE_NAME}},
+                    {"term": {"processor.event": "span"}},
+                    {"range": {"@timestamp": {"gte": start_time_iso}}}
+                ]
+            }
+        },
+        "aggs": {
+            "by_type": {
+                "terms": {
+                    "field": "span.type",
+                    "size": 100
+                },
+                "aggs": {
+                    "by_name": {
+                        "terms": {
+                            "field": "span.name",
+                            "size": 500
+                        },
+                        "aggs": {
+                            "avg_duration": {
+                                "avg": {"field": "span.duration.us"}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    try:
+        res = send_es_request(f"{APM_INDEX}/_search", query)
+        type_buckets = res["aggregations"]["by_type"]["buckets"]
+        dependencies = []
+        for type_bucket in type_buckets:
+            span_type = type_bucket["key"]
+            name_buckets = type_bucket["by_name"]["buckets"]
+            for name_bucket in name_buckets:
+                span_name = name_bucket["key"]
+                count = name_bucket["doc_count"]
+                avg_ms = (name_bucket["avg_duration"]["value"] or 0) / 1000.0
+                dependencies.append({
+                    "type": span_type,
+                    "name": span_name,
+                    "count": count,
+                    "avg_ms": avg_ms
+                })
+        dependencies.sort(key=lambda x: x["avg_ms"] * x["count"], reverse=True)
+        return dependencies
+    except Exception as e:
+        print(f"[-] Error fetching dependencies: {e}")
         return []
 
 # =============================================================================
@@ -246,8 +307,10 @@ if __name__ == "__main__":
     slow_tx = fetch_slowest_transactions(start_time_iso)
     if slow_tx:
         for idx, tx in enumerate(slow_tx, 1):
+            impact_sec = (tx['avg_ms'] * tx['count']) / 1000.0
             print(f"    {idx:2d}. {tx['name']}")
             print(f"        Average Latency : {tx['avg_ms']:.2f} ms (Count: {tx['count']})")
+            print(f"        Cumulative Time : {impact_sec:.2f} seconds")
     else:
         print(f"    [!] No transactions found >= {LATENCY_THRESHOLD_MS} ms.")
         
@@ -258,8 +321,10 @@ if __name__ == "__main__":
     slow_db = fetch_slowest_spans(start_time_iso, "db")
     if slow_db:
         for idx, span in enumerate(slow_db, 1):
+            impact_sec = (span['avg_ms'] * span['count']) / 1000.0
             print(f"    {idx:2d}. {span['name']}")
             print(f"        Average Duration: {span['avg_ms']:.2f} ms (Count: {span['count']})")
+            print(f"        Cumulative Time : {impact_sec:.2f} seconds")
     else:
         print(f"    [!] No database queries found >= {DB_LATENCY_THRESHOLD_MS} ms.")
         
@@ -270,10 +335,26 @@ if __name__ == "__main__":
     slow_ext = fetch_slowest_spans(start_time_iso, "external")
     if slow_ext:
         for idx, span in enumerate(slow_ext, 1):
+            impact_sec = (span['avg_ms'] * span['count']) / 1000.0
             print(f"    {idx:2d}. {span['name']}")
             print(f"        Average Duration: {span['avg_ms']:.2f} ms (Count: {span['count']})")
+            print(f"        Cumulative Time : {impact_sec:.2f} seconds")
     else:
         print(f"    [!] No external API requests found >= {LATENCY_THRESHOLD_MS} ms.")
+        
+    print("-" * 60)
+    
+    # 5. Fetch High Impact Dependencies (Unified)
+    print(f"[*] Fetching all high-impact dependencies (Prioritized by Cumulative Impact)...")
+    high_impact_deps = fetch_high_impact_dependencies(start_time_iso)
+    if high_impact_deps:
+        for idx, dep in enumerate(high_impact_deps[:20], 1): # Top 20
+            impact_sec = (dep['avg_ms'] * dep['count']) / 1000.0
+            print(f"    {idx:2d}. [{dep['type']}] {dep['name']}")
+            print(f"        Average Duration: {dep['avg_ms']:.2f} ms (Count: {dep['count']})")
+            print(f"        Cumulative Time : {impact_sec:.2f} seconds")
+    else:
+        print("    [!] No dependencies found.")
         
     print("=" * 60)
     print("Execution complete.")

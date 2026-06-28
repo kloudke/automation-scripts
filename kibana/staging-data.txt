@@ -1,0 +1,141 @@
+============================================================
+           WHMCS Elastic APM Telemetry Fetcher
+============================================================
+[*] Querying Elasticsearch Host: https://elastic.jisort.com
+[*] Targeting APM Service     : STAGING-WHMCS
+[*] Time Range                : Last 24 hours (since 2026-06-25T09:40:00.847040Z)
+[*] Transaction/API Threshold : >= 2000.0 ms
+[*] DB Query Latency Threshold: >= 200.0 ms
+------------------------------------------------------------
+[*] Fetching general latency percentiles...
+    - Median Latency (p50): 471.12 ms
+    - 95th Percentile (p95): 3493.18 ms
+    - 99th Percentile (p99): 26465.03 ms
+------------------------------------------------------------
+[*] Fetching all transactions >= 2000.0 ms...
+     1. GET /cloud/admin/index.php
+        Average Latency : 14083.71 ms (Count: 42)
+        Cumulative Time : 591.52 seconds
+     2. POST /cloud/admin/addonmodules.php
+        Average Latency : 5424.05 ms (Count: 89)
+        Cumulative Time : 482.74 seconds
+     3. GET /cloud/admin/configaddonmods.php
+        Average Latency : 14325.93 ms (Count: 18)
+        Cumulative Time : 257.87 seconds
+     4. GET /cloud/clientarea.php
+        Average Latency : 2393.87 ms (Count: 101)
+        Cumulative Time : 241.78 seconds
+     5. POST /cloud/clientarea.php
+        Average Latency : 11024.90 ms (Count: 7)
+        Cumulative Time : 77.17 seconds
+     6. GET /cloud/admin/clientsdomains.php
+        Average Latency : 2684.73 ms (Count: 9)
+        Cumulative Time : 24.16 seconds
+     7. POST /cloud/cart.php
+        Average Latency : 7603.83 ms (Count: 2)
+        Cumulative Time : 15.21 seconds
+     8. POST /cloud/admin/configaddonmods.php
+        Average Latency : 7105.20 ms (Count: 2)
+        Cumulative Time : 14.21 seconds
+     9. GET /cloud/templates/lagom2/assets/img/logo/logo_small.2079612341.png
+        Average Latency : 4673.22 ms (Count: 1)
+        Cumulative Time : 4.67 seconds
+    10. GET /cloud/templates/lagom2/assets/img/logo/logo_small_inverse.332685193.png
+        Average Latency : 3738.28 ms (Count: 1)
+        Cumulative Time : 3.74 seconds
+    11. GET /cloud/admin/configregistrars.php
+        Average Latency : 2908.28 ms (Count: 1)
+        Cumulative Time : 2.91 seconds
+    12. GET /cloud/templates/lagom2/assets/img/favicons/favicons.png
+        Average Latency : 2755.03 ms (Count: 1)
+        Cumulative Time : 2.76 seconds
+    13. GET /cloud/admin/modulequeue.php
+        Average Latency : 2007.09 ms (Count: 1)
+        Cumulative Time : 2.01 seconds
+------------------------------------------------------------
+[*] Fetching all database queries (SQL) >= 200.0 ms...
+     1. select `DNSManager3_Job`.*, 
+                CASE 
+                    WHEN tblclients.firstname IS NULL OR tblclients.lastname IS NULL THEN 'Admin'
+                    ELSE CONCAT(tblclients.firstname, ' ', tblclients.lastname, 
+                                IF(tblclients.companyname != '', CONCAT(' (', tblclients.companyname, ')'), '')
+                    )
+                END AS client
+             from `DNSManager3_Job` left join `tblclients` on `tblclients`.`id` = `DNSManager3_Job`.`userid`
+        Average Duration: 354.54 ms (Count: 2)
+        Cumulative Time : 0.71 seconds
+------------------------------------------------------------
+[*] Fetching all external network requests (APIs) >= 2000.0 ms...
+     1. GET central.dns.truehost.cloud
+        Average Duration: 4464.10 ms (Count: 116)
+        Cumulative Time : 517.84 seconds
+     2. GET httpbin.org
+        Average Duration: 6552.61 ms (Count: 54)
+        Cumulative Time : 353.84 seconds
+     3. POST api.openprovider.eu
+        Average Duration: 6283.20 ms (Count: 2)
+        Cumulative Time : 12.57 seconds
+------------------------------------------------------------
+[*] Fetching all high-impact dependencies (Prioritized by Cumulative Impact)...
+     1. [external] GET central.dns.truehost.cloud
+        Average Duration: 4464.10 ms (Count: 116)
+        Cumulative Time : 517.84 seconds
+     2. [external] GET httpbin.org
+        Average Duration: 6552.61 ms (Count: 54)
+        Cumulative Time : 353.84 seconds
+     3. [external] POST workplacedev-console.truehost.cloud
+        Average Duration: 1416.95 ms (Count: 74)
+        Cumulative Time : 104.85 seconds
+     4. [external] GET api.openprovider.eu
+        Average Duration: 1195.71 ms (Count: 74)
+        Cumulative Time : 88.48 seconds
+     5. [db] select `related_type`, `related_id`, `translation` from `tbldynamic_translations` where `language` = ?
+        Average Duration: 34.38 ms (Count: 1830)
+        Cumulative Time : 62.91 seconds
+     6. [external] GET api.dynadot.com
+        Average Duration: 420.06 ms (Count: 121)
+        Cumulative Time : 50.83 seconds
+     7. [external] POST 102.212.244.179
+        Average Duration: 247.52 ms (Count: 201)
+        Cumulative Time : 49.75 seconds
+     8. [db] select * from `tblconfiguration` where `setting` = ? limit 1
+        Average Duration: 0.72 ms (Count: 40886)
+        Cumulative Time : 29.50 seconds
+     9. [external] POST license.whmcsnulled.com
+        Average Duration: 352.23 ms (Count: 76)
+        Cumulative Time : 26.77 seconds
+    10. [external] GET www.namesilo.com
+        Average Duration: 430.52 ms (Count: 44)
+        Cumulative Time : 18.94 seconds
+    11. [external] POST api.openprovider.eu
+        Average Duration: 6283.20 ms (Count: 2)
+        Cumulative Time : 12.57 seconds
+    12. [db] select * from `DNSManager3_Job` where `job` = ? and `status` = ?
+        Average Duration: 155.25 ms (Count: 57)
+        Cumulative Time : 8.85 seconds
+    13. [external] POST webstore.i3c.co.ug
+        Average Duration: 381.85 ms (Count: 21)
+        Cumulative Time : 8.02 seconds
+    14. [db] select * from `rsthemes_menus_content` where `rsthemes_menus_content`.`id` = ? and `rsthemes_menus_content`.`id` is not null limit 1
+        Average Duration: 0.44 ms (Count: 17069)
+        Cumulative Time : 7.48 seconds
+    15. [external] GET staging.truehost.dev
+        Average Duration: 1162.78 ms (Count: 6)
+        Cumulative Time : 6.98 seconds
+    16. [db] select * from `rsthemes_menus_types` where `rsthemes_menus_types`.`id` = ? limit 1
+        Average Duration: 0.36 ms (Count: 16474)
+        Cumulative Time : 5.98 seconds
+    17. [external] POST verify.whmcsnulled.com
+        Average Duration: 1037.98 ms (Count: 5)
+        Cumulative Time : 5.19 seconds
+    18. [db] select `data` from `tbltransientdata` where `name` LIKE ? and `expires` > ?
+        Average Duration: 43.14 ms (Count: 116)
+        Cumulative Time : 5.00 seconds
+    19. [db] select * from information_schema.tables where table_schema = ? and table_name = ? and table_type = 'BASE TABLE'
+        Average Duration: 0.83 ms (Count: 5265)
+        Cumulative Time : 4.35 seconds
+    20. [db] use `staging_whmcs`;
+        Average Duration: 2.43 ms (Count: 1592)
+        Cumulative Time : 3.87 seconds
+============================================================
+Execution complete.
