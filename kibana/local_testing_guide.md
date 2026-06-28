@@ -149,11 +149,23 @@ spec:
 
 ---
 
-## Step 3: Deploy a Local MySQL Database
+## Step 3: Deploy a Local MySQL Database (with Persistent Storage)
 
-Apply this manifest to deploy a lightweight single-node MySQL 5.7 database in the default namespace:
+Apply this manifest to deploy a single-node MySQL 5.7 database with a 5GB PersistentVolumeClaim (PVC) in the default namespace:
 
 ```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -183,6 +195,13 @@ spec:
               value: "whmcs"
             - name: MYSQL_PASSWORD
               value: "whmcs_password"
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
 ---
 apiVersion: v1
 kind: Service
