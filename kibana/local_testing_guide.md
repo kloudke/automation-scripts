@@ -4,7 +4,7 @@ This guide outlines how to run a completely self-contained local testing cluster
 
 ---
 
-## Step 0: Build and Load the WHMCS Development Image
+### Build and Load the WHMCS Development Image
 
 Since the production base images are in a private registry, you must first build a development image locally using the public Dockerfile we created and load it into your Kubernetes cluster.
 
