@@ -1,312 +1,210 @@
-# Local Testing Guide: Deploying WHMCS with Elastic APM
+# Local PHP Testing Guide for WHMCS & Elastic APM
 
-This guide provides step-by-step instructions to build the updated WHMCS container image, deploy a local Elastic Stack (Elasticsearch, Kibana, APM Server) in your homelab cluster, and verify that telemetry flows correctly without performance degradation.
+Since the organization base images are in a private registry, you can test the APM agent optimizations natively on your local environment or virtual machine as a standard PHP project. 
+
+This guide uses a hybrid approach:
+1. **Elastic Stack & Database (Public Images)**: Run via a simple local Docker Compose file (no private registry login required).
+2. **WHMCS & APM (Native)**: Run natively on your machine or VM using PHP, ionCube, and the APM extension.
 
 ---
 
-## Step 1: Build the WHMCS Docker Image locally
+## Step 1: Run the Elastic Stack & MySQL locally (No credentials required)
 
-First, compile the Docker image containing the updated `php.ini`, `entrypoint.sh`, and the new APM agent `v1.17.0` package.
+Create a `docker-compose.yml` file in a temporary folder or inside your project root to spin up Elasticsearch, Kibana, APM Server, and MySQL:
 
-Run this command from the root of the WHMCS repository (`/Users/gedeon/Dev/work/tcloud-whmcs`):
+```yaml
+version: '3.7'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.9
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.17.9
+    container_name: apm-server
+    command: >
+      apm-server -e
+      -E apm-server.host=0.0.0.0:8200
+      -E apm-server.rum.enabled=true
+      -E output.elasticsearch.hosts=["elasticsearch:9200"]
+    ports:
+      - "8200:8200"
+    depends_on:
+      - elasticsearch
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=whmcs_db
+      - MYSQL_USER=whmcs
+      - MYSQL_PASSWORD=whmcs_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+```
+
+Start the stack:
 ```bash
-# Build the image using latest theme and addons
-docker build \
-  --build-arg THEME_TAG=latest \
-  --build-arg ADDONS_TAG=latest \
-  -t homelab/whmcs-app:optimize-whmcs .
-```
-
-*Note: If testing on a multi-node Kubernetes cluster, push the built image to your local homelab registry, or load it into your local cluster nodes (e.g. `minikube image load homelab/whmcs-app:optimize-whmcs` or `k3d image import ...`).*
-
----
-
-## Step 2: Deploy a Local APM & Elastic Stack
-
-To receive telemetry, you need Elasticsearch, Kibana, and the Elastic APM Server running locally.
-
-### Option A: Kubernetes Manifests (Recommended for Homelab K8s)
-
-Apply the following manifests in a namespace called `monitoring` (or similar) to deploy a lightweight single-node stack:
-
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: monitoring
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: elasticsearch
-  namespace: monitoring
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: elasticsearch
-  template:
-    metadata:
-      labels:
-        app: elasticsearch
-    spec:
-      containers:
-        - name: elasticsearch
-          image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
-          ports:
-            - containerPort: 9200
-          env:
-            - name: discovery.type
-              value: single-node
-            - name: xpack.security.enabled
-              value: "false"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: elasticsearch
-  namespace: monitoring
-spec:
-  ports:
-    - port: 9200
-  selector:
-    app: elasticsearch
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kibana
-  namespace: monitoring
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: kibana
-  template:
-    metadata:
-      labels:
-        app: kibana
-    spec:
-      containers:
-        - name: kibana
-          image: docker.elastic.co/kibana/kibana:7.17.9
-          ports:
-            - containerPort: 5601
-          env:
-            - name: ELASTICSEARCH_HOSTS
-              value: "http://elasticsearch:9200"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kibana
-  namespace: monitoring
-spec:
-  ports:
-    - port: 5601
-  selector:
-    app: kibana
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: apm-server
-  namespace: monitoring
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: apm-server
-  template:
-    metadata:
-      labels:
-        app: apm-server
-    spec:
-      containers:
-        - name: apm-server
-          image: docker.elastic.co/apm/apm-server:7.17.9
-          ports:
-            - containerPort: 8200
-          env:
-            - name: apm-server.host
-              value: "0.0.0.0:8200"
-            - name: apm-server.rum.enabled
-              value: "true"
-            - name: output.elasticsearch.hosts
-              value: "['http://elasticsearch:9200']"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: apm-server
-  namespace: monitoring
-spec:
-  ports:
-    - port: 8200
-  selector:
-    app: apm-server
+docker-compose up -d
 ```
 
 ---
 
-## Step 3: Deploy a Local MySQL Database (with Persistent Storage)
+## Step 2: Configure Your Local PHP Environment
 
-Apply this manifest to deploy a single-node MySQL 5.7 database with a 5GB PersistentVolumeClaim (PVC) in the default namespace:
+WHMCS 8.10.1 (the version in this repository) officially supports **PHP 7.4, 8.1, and 8.2** (with PHP 8.1 being the recommended and optimized version). 
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pvc
-  namespace: default
-spec:
-  storageClassName: local-path
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+You can use either **PHP 7.3/7.4** or a more modern version like **PHP 8.1**.
+
+### 1. Install PHP (PHP 8.1 Recommended or PHP 7.3)
+
+* **Option A: Install PHP 8.1 (Recommended)**:
+  * **On Linux (Ubuntu/Debian)**:
+    ```bash
+    sudo apt update
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
+    sudo apt install -y php8.1 php8.1-cli php8.1-common php8.1-mysql php8.1-xml php8.1-mbstring php8.1-zip php8.1-curl php8.1-gd php8.1-bcmath
+    ```
+  * **On macOS**:
+    ```bash
+    brew tap shivammathur/php
+    brew install shivammathur/php/php@8.1
+    brew link --overwrite --force php@8.1
+    ```
+
+* **Option B: Install PHP 7.3 (Legacy)**:
+  * **On Linux (Ubuntu/Debian)**:
+    ```bash
+    sudo apt update
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
+    sudo apt install -y php7.3 php7.3-cli php7.3-common php7.3-mysql php7.3-xml php7.3-mbstring php7.3-zip php7.3-curl php7.3-gd php7.3-json php7.3-bcmath
+    ```
+  * **On macOS**:
+    ```bash
+    brew tap shivammathur/php
+    brew install shivammathur/php/php@7.3
+    brew link --overwrite --force php@7.3
+    ```
+
+Verify the version is active by running `php -v`.
+
+### 2. Install ionCube Loader
+
+WHMCS files are compiled/encrypted using ionCube. You must use the loader version matching your PHP version:
+
+* **If using PHP 7.3**:
+  * **On Linux**: Use the included file `/path/to/tcloud-whmcs/ioncube_loader_lin_7.3.so`.
+  * **On macOS**: Download the OS X 64-bit PHP 7.3 loader from [ionCube](https://www.ioncube.com/loaders.php).
+* **If using PHP 8.1**:
+  * **On Linux**: Download the Linux 64-bit PHP 8.1 loader (`ioncube_loader_lin_8.1.so`) from [ionCube](https://www.ioncube.com/loaders.php).
+  * **On macOS**: Download the OS X 64-bit PHP 8.1 loader (`ioncube_loader_dar_8.1.so`) from [ionCube](https://www.ioncube.com/loaders.php).
+
+Add the extension path to the top of your active `php.ini`:
+```ini
+zend_extension = "/path/to/ioncube_loader_xxxx_x.x.so"
+```
+
+### 3. Install the Elastic APM PHP Agent
+* **On Linux (Ubuntu/Debian)**:
+  Install the pre-downloaded package from the repository:
+  ```bash
+  sudo dpkg -i apm-agent-php_1.17.0_amd64.deb
+  ```
+* **On macOS**:
+  Download the Darwin tarball release of the APM Agent from the [Elastic APM PHP releases page](https://github.com/elastic/apm-agent-php/releases/tag/v1.17.0) (e.g. `apm-agent-php-1.17.0-darwin-x86_64.tar.gz`), unpack it, and configure the path in your `php.ini`.
+
+### 4. Append APM and OPcache Configuration to `php.ini`
+Locate your active `php.ini` (run `php --ini` to find it) and append the following configuration:
+
+```ini
+; 1. Elastic APM Configuration
+extension=elastic_apm.so
+elastic_apm.enabled=true
+elastic_apm.server_url="http://localhost:8200"
+elastic_apm.service_name="local-whmcs-native"
+elastic_apm.async_backend_comm=true
+elastic_apm.transaction_sample_rate=0.5
+elastic_apm.span_stack_trace_min_duration=50ms
+
+; 2. OPcache Configuration (Optional, aligns with production environment)
+opcache.enable=1
+opcache.enable_cli=1
+opcache.memory_consumption=256
+opcache.interned_strings_buffer=16
+opcache.max_accelerated_files=20000
+opcache.max_wasted_percentage=5
+opcache.use_cwd=1
+; For local testing, keep validate_timestamps=1 so changes to local files are reflected immediately.
+; In production, this is set to 0 for maximum performance.
+opcache.validate_timestamps=1
+```
+
+> [!IMPORTANT]
+> Make sure `elastic_apm.async_backend_comm=true` is present. This is the crucial setting we implemented to solve the request blocking and latency spikes!
+
+> [!TIP]
+> In production/staging, `opcache.validate_timestamps` is set to `0`. If you use `0` locally, PHP will cache files permanently, meaning any manual edits to your code will not be visible until you restart your PHP server. Keep it set to `1` during local verification.
+
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mysql
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mysql
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-        - name: mysql
-          image: mysql:5.7
-          ports:
-            - containerPort: 3306
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "root_password"
-            - name: MYSQL_DATABASE
-              value: "whmcs_db"
-            - name: MYSQL_USER
-              value: "whmcs"
-            - name: MYSQL_PASSWORD
-              value: "whmcs_password"
-          volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-  namespace: default
-spec:
-  ports:
-    - port: 3306
-  selector:
-    app: mysql
+
+## Step 3: Configure and Start the WHMCS Application
+
+### 1. Point to Your Local Database
+Open `configuration.php` in the root of the project and update the credentials to match your MySQL Docker container (since MySQL exposes port `3306` to the host, you can connect using `127.0.0.1`):
+
+```php
+$db_host = '127.0.0.1'; 
+$db_port = '3306';
+$db_username = 'whmcs';
+$db_password = 'whmcs_password';
+$db_name = 'whmcs_db';
+```
+
+### 2. Start the Local PHP Development Server (Using the Project's `php.ini`)
+
+You can tell PHP to use the `php.ini` file located inside the repository directly instead of your global system `php.ini` by using the `-c` flag:
+
+1. First, open the repository's [php.ini](file:///Users/gedeon/Dev/work/tcloud-whmcs/php.ini) and replace the `$APM_SERVICE_NAME` placeholder at the bottom with a descriptive name (e.g., `local-whmcs-native`), and change `https://apm.jisort.com` to `http://localhost:8200`.
+2. Add your `zend_extension="/path/to/ioncube..."` line at the very top of the repository's `php.ini`.
+3. If the Elastic APM agent is not installed globally on your machine, add `extension=elastic_apm.so` at the bottom of the repository's `php.ini` as well.
+4. Run the PHP development server, pointing to the local `php.ini`:
+
+```bash
+php -c php.ini -S localhost:8000
 ```
 
 ---
 
-## Step 4: Deploy the WHMCS App and Service Locally in K8s
-
-Deploy the WHMCS application container and expose it using a `NodePort` Service on port `30080`:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: whmcs-local
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: whmcs-local
-  template:
-    metadata:
-      labels:
-        app: whmcs-local
-    spec:
-      containers:
-        - name: whmcs-app
-          image: homelab/whmcs-app:optimize-whmcs
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 80
-          env:
-            - name: INSTRUMENT_ELASTIC_APM
-              value: "True"
-            - name: APM_SERVICE_NAME
-              value: "local-whmcs"
-            - name: APM_SERVER_URL
-              value: "http://apm-server.monitoring.svc.cluster.local:8200"
-            - name: DB_HOST
-              value: "mysql"
-            - name: DB_PORT
-              value: "3306"
-            - name: DB_USER
-              value: "whmcs"
-            - name: DB_PASSWORD
-              value: "whmcs_password"
-            - name: DB_NAME
-              value: "whmcs_db"
-            - name: WHMCS_LICENCE
-              value: "YOUR_DEV_LICENSE"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: whmcs-local
-  namespace: default
-spec:
-  type: NodePort
-  ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30080
-  selector:
-    app: whmcs-local
-```
-
----
-
-## Step 5: Verify Telemetry and Optimization in Kibana
+## Step 4: Verify Telemetry in Kibana
 
 1. **Access WHMCS**:
-   You can access the WHMCS installation using one of two methods:
-   - **Method A (NodePort)**: Open `http://<KUBERNETES_NODE_IP>:30080/cloud/` in your browser.
-   - **Method B (Port Forward)**: If NodePort is not accessible from your machine, port-forward the service:
-     ```bash
-     kubectl port-forward svc/whmcs-local 8080:80
-     ```
-     Then open `http://localhost:8080/cloud/` in your browser.
-
+   Open `http://localhost:8000/` or `http://localhost:8000/cloud/` in your browser.
 2. **Access Kibana**:
-   Port-forward to Kibana locally:
-   ```bash
-   kubectl port-forward svc/kibana -n monitoring 5601:5601
-   ```
    Open `http://localhost:5601` in your browser.
-
-3. **Generate Traffic**:
-   Trigger requests on the local WHMCS deployment (e.g. click around the client area or administration panels at the `/cloud/` path).
-
-4. **Check the APM Dashboard**:
-   - In Kibana, go to **Observability** > **APM** > **Services**.
-   - You should see `local-whmcs` active in the service list.
-   - Click on the service to verify that transactions, trace waterfall graphs, and SQL queries are logged.
-
-5. **Verify Memory Allocation and Asynchronous Offloading**:
-   - Check that `USE_ZEND_ALLOC` is enabled (`USE_ZEND_ALLOC=1` by default) by accessing a simple `phpinfo.php` file inside the container, or verify that CPU utilization remains low.
-   - In `phpinfo.php` (or running `php -i`), verify that `elastic_apm.async_backend_comm` displays as `true` (confirming that trace uploading is executing asynchronously in the background).
+3. Go to **Observability** > **APM** > **Services**.
+4. You should see `local-whmcs-native` listed. Click on it to check that transactions are logged asynchronously without blocking the PHP process.
