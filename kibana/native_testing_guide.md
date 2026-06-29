@@ -75,7 +75,34 @@ docker-compose up -d
 
 WHMCS requires **PHP 7.3 or 7.4**, the **ionCube Loader** extension (for decryption), and the **Elastic APM PHP extension**.
 
-### 1. Install ionCube Loader
+### 1. Install PHP 7.3
+
+Since PHP 7.3 is legacy/EOL, it is no longer available in the default package repositories of modern operating systems. Use the repositories below to install it:
+
+* **On Linux (Ubuntu/Debian)**:
+  Use Ondřej Surý's PHP PPA:
+  ```bash
+  sudo apt update
+  sudo apt install -y software-properties-common
+  sudo add-apt-repository ppa:ondrej/php -y
+  sudo apt update
+  
+  # Install PHP 7.3 and required extensions for WHMCS
+  sudo apt install -y php7.3 php7.3-cli php7.3-common php7.3-mysql php7.3-xml php7.3-mbstring php7.3-zip php7.3-curl php7.3-gd php7.3-json php7.3-bcmath
+  ```
+
+* **On macOS**:
+  Use the Shivam Mathur PHP tap via Homebrew:
+  ```bash
+  brew tap shivammathur/php
+  brew install shivammathur/php/php@7.3
+  
+  # Link and set as default path
+  brew link --overwrite --force php@7.3
+  ```
+  Verify by running `php -v` to ensure it outputs `PHP 7.3.x`.
+
+### 2. Install ionCube Loader
 * **On Linux (Ubuntu/Debian)**: 
   The repository already includes the Linux ionCube loader: `ioncube_loader_lin_7.3.so`. Copy it to your PHP extension directory or reference it directly in your `php.ini`:
   ```ini
