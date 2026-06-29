@@ -4,6 +4,43 @@ This guide outlines how to run a completely self-contained local testing cluster
 
 ---
 
+## Step 0: Build and Load the WHMCS Development Image
+
+Since the production base images are in a private registry, you must first build a development image locally using the public Dockerfile we created and load it into your Kubernetes cluster.
+
+### 1. Build the Development Image locally
+From the root of the project, run:
+```bash
+docker build -f Dockerfile.development -t homelab/whmcs-app:optimize-whmcs .
+```
+
+### 2. Make the Image Available to Kubernetes
+Depending on your cluster environment, choose one of these methods to load the image onto the nodes:
+
+* **Method A (Public Registry)**: Tag and push the image to a public repository (e.g. Docker Hub):
+  ```bash
+  docker tag homelab/whmcs-app:optimize-whmcs your-username/whmcs-app:optimize-whmcs
+  docker push your-username/whmcs-app:optimize-whmcs
+  ```
+  *(If you choose this, change the image name in Step 4's deployment manifest from `homelab/whmcs-app:optimize-whmcs` to `your-username/whmcs-app:optimize-whmcs`).*
+
+* **Method B (Minikube)**: Load the image directly into your minikube cache:
+  ```bash
+  minikube image load homelab/whmcs-app:optimize-whmcs
+  ```
+
+* **Method C (K3s / MicroK8s containerd cache)**: Save the image to a tarball, transfer it to the node, and import it into the containerd cache:
+  ```bash
+  # 1. Save locally
+  docker save homelab/whmcs-app:optimize-whmcs > whmcs-dev.tar
+  # 2. Copy to K8s node
+  scp whmcs-dev.tar user@node-ip:/tmp/
+  # 3. Import on the node
+  sudo ctr -n=k8s.io images import /tmp/whmcs-dev.tar
+  ```
+
+---
+
 ## Step 1: Deploy Elasticsearch and Kibana
 
 Apply the following manifests to deploy Elasticsearch and Kibana inside a dedicated `monitoring` namespace:
