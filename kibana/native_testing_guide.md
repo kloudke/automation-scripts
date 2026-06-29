@@ -73,48 +73,63 @@ docker-compose up -d
 
 ## Step 2: Configure Your Local PHP Environment
 
-WHMCS requires **PHP 7.3 or 7.4**, the **ionCube Loader** extension (for decryption), and the **Elastic APM PHP extension**.
+WHMCS 8.10.1 (the version in this repository) officially supports **PHP 7.4, 8.1, and 8.2** (with PHP 8.1 being the recommended and optimized version). 
 
-### 1. Install PHP 7.3
+You can use either **PHP 7.3/7.4** or a more modern version like **PHP 8.1**.
 
-Since PHP 7.3 is legacy/EOL, it is no longer available in the default package repositories of modern operating systems. Use the repositories below to install it:
+### 1. Install PHP (PHP 8.1 Recommended or PHP 7.3)
 
-* **On Linux (Ubuntu/Debian)**:
-  Use Ondřej Surý's PHP PPA:
-  ```bash
-  sudo apt update
-  sudo apt install -y software-properties-common
-  sudo add-apt-repository ppa:ondrej/php -y
-  sudo apt update
-  
-  # Install PHP 7.3 and required extensions for WHMCS
-  sudo apt install -y php7.3 php7.3-cli php7.3-common php7.3-mysql php7.3-xml php7.3-mbstring php7.3-zip php7.3-curl php7.3-gd php7.3-json php7.3-bcmath
-  ```
+* **Option A: Install PHP 8.1 (Recommended)**:
+  * **On Linux (Ubuntu/Debian)**:
+    ```bash
+    sudo apt update
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
+    sudo apt install -y php8.1 php8.1-cli php8.1-common php8.1-mysql php8.1-xml php8.1-mbstring php8.1-zip php8.1-curl php8.1-gd php8.1-bcmath
+    ```
+  * **On macOS**:
+    ```bash
+    brew tap shivammathur/php
+    brew install shivammathur/php/php@8.1
+    brew link --overwrite --force php@8.1
+    ```
 
-* **On macOS**:
-  Use the Shivam Mathur PHP tap via Homebrew:
-  ```bash
-  brew tap shivammathur/php
-  brew install shivammathur/php/php@7.3
-  
-  # Link and set as default path
-  brew link --overwrite --force php@7.3
-  ```
-  Verify by running `php -v` to ensure it outputs `PHP 7.3.x`.
+* **Option B: Install PHP 7.3 (Legacy)**:
+  * **On Linux (Ubuntu/Debian)**:
+    ```bash
+    sudo apt update
+    sudo apt install -y software-properties-common
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
+    sudo apt install -y php7.3 php7.3-cli php7.3-common php7.3-mysql php7.3-xml php7.3-mbstring php7.3-zip php7.3-curl php7.3-gd php7.3-json php7.3-bcmath
+    ```
+  * **On macOS**:
+    ```bash
+    brew tap shivammathur/php
+    brew install shivammathur/php/php@7.3
+    brew link --overwrite --force php@7.3
+    ```
+
+Verify the version is active by running `php -v`.
 
 ### 2. Install ionCube Loader
-* **On Linux (Ubuntu/Debian)**: 
-  The repository already includes the Linux ionCube loader: `ioncube_loader_lin_7.3.so`. Copy it to your PHP extension directory or reference it directly in your `php.ini`:
-  ```ini
-  zend_extension = "/path/to/tcloud-whmcs/ioncube_loader_lin_7.3.so"
-  ```
-* **On macOS**: 
-  Download the OS X 64-bit ionCube Loader from the [official ionCube website](https://www.ioncube.com/loaders.php) and add it to your `php.ini`:
-  ```ini
-  zend_extension = "/path/to/ioncube_loader_dar_7.3.so"
-  ```
 
-### 2. Install the Elastic APM PHP Agent
+WHMCS files are compiled/encrypted using ionCube. You must use the loader version matching your PHP version:
+
+* **If using PHP 7.3**:
+  * **On Linux**: Use the included file `/path/to/tcloud-whmcs/ioncube_loader_lin_7.3.so`.
+  * **On macOS**: Download the OS X 64-bit PHP 7.3 loader from [ionCube](https://www.ioncube.com/loaders.php).
+* **If using PHP 8.1**:
+  * **On Linux**: Download the Linux 64-bit PHP 8.1 loader (`ioncube_loader_lin_8.1.so`) from [ionCube](https://www.ioncube.com/loaders.php).
+  * **On macOS**: Download the OS X 64-bit PHP 8.1 loader (`ioncube_loader_dar_8.1.so`) from [ionCube](https://www.ioncube.com/loaders.php).
+
+Add the extension path to the top of your active `php.ini`:
+```ini
+zend_extension = "/path/to/ioncube_loader_xxxx_x.x.so"
+```
+
+### 3. Install the Elastic APM PHP Agent
 * **On Linux (Ubuntu/Debian)**:
   Install the pre-downloaded package from the repository:
   ```bash
@@ -123,7 +138,7 @@ Since PHP 7.3 is legacy/EOL, it is no longer available in the default package re
 * **On macOS**:
   Download the Darwin tarball release of the APM Agent from the [Elastic APM PHP releases page](https://github.com/elastic/apm-agent-php/releases/tag/v1.17.0) (e.g. `apm-agent-php-1.17.0-darwin-x86_64.tar.gz`), unpack it, and configure the path in your `php.ini`.
 
-### 3. Append APM Configuration to `php.ini`
+### 4. Append APM Configuration to `php.ini`
 Locate your active `php.ini` (run `php --ini` to find it) and append the following configuration:
 
 ```ini
