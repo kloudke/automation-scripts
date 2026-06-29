@@ -46,6 +46,22 @@ services:
       - "8200:8200"
     depends_on:
       - elasticsearch
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=whmcs_db
+      - MYSQL_USER=whmcs
+      - MYSQL_PASSWORD=whmcs_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
 ```
 
 Start the stack:
@@ -102,14 +118,14 @@ elastic_apm.span_stack_trace_min_duration=50ms
 ## Step 3: Configure and Start the WHMCS Application
 
 ### 1. Point to Your Local Database
-Open `configuration.php` in the root of the project and ensure the database credentials match your local MySQL server setup:
+Open `configuration.php` in the root of the project and update the credentials to match your MySQL Docker container (since MySQL exposes port `3306` to the host, you can connect using `127.0.0.1`):
 
 ```php
-$db_host = 'localhost'; // or your local DB IP
+$db_host = '127.0.0.1'; 
 $db_port = '3306';
-$db_username = 'your_mysql_user';
-$db_password = 'your_mysql_password';
-$db_name = 'your_whmcs_database';
+$db_username = 'whmcs';
+$db_password = 'whmcs_password';
+$db_name = 'whmcs_db';
 ```
 
 ### 2. Start the Local PHP Development Server
