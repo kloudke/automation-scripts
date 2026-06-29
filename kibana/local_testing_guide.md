@@ -245,9 +245,25 @@ spec:
 
 ## Step 4: Deploy the WHMCS App and Service Locally in K8s
 
-Deploy the WHMCS application container and expose it using a `NodePort` Service on port `30080`:
+Deploy the WHMCS application container, an APM configuration ConfigMap (which bypasses Apache's environment variable stripping), and expose it using a `NodePort` Service on port `30080`:
 
 ```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: whmcs-apm-config
+  namespace: default
+data:
+  99-apm-custom.ini: |
+    elastic_apm.enabled=true
+    elastic_apm.server_url="http://apm-server.monitoring.svc.cluster.local:8200"
+    elastic_apm.service_name="local-whmcs"
+    elastic_apm.async_backend_comm=true
+    elastic_apm.transaction_sample_rate=0.1
+    elastic_apm.transaction_max_spans=50
+    elastic_apm.span_stack_trace_min_duration=0ms
+    elastic_apm.stack_trace_limit=0
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -270,12 +286,8 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: INSTRUMENT_ELASTIC_APM
-              value: "True"
-            - name: APM_SERVICE_NAME
-              value: "local-whmcs"
-            - name: APM_SERVER_URL
-              value: "http://apm-server.monitoring.svc.cluster.local:8200"
+            - name: USE_ZEND_ALLOC
+              value: "0"
             - name: DB_HOST
               value: "mysql"
             - name: DB_PORT
@@ -288,6 +300,14 @@ spec:
               value: "whmcs_db"
             - name: WHMCS_LICENCE
               value: "YOUR_DEV_LICENSE"
+          volumeMounts:
+            - name: apm-config-volume
+              mountPath: /usr/local/etc/php/conf.d/99-apm-k8s.ini
+              subPath: 99-apm-custom.ini
+      volumes:
+        - name: apm-config-volume
+          configMap:
+            name: whmcs-apm-config
 ---
 apiVersion: v1
 kind: Service
@@ -333,5 +353,6 @@ spec:
    - Click on the service to verify that transactions, trace waterfall graphs, and SQL queries are logged.
 
 5. **Verify Memory Allocation and Asynchronous Offloading**:
-   - Check that `USE_ZEND_ALLOC` is enabled (`USE_ZEND_ALLOC=1` by default) by accessing a simple `phpinfo.php` file inside the container, or verify that CPU utilization remains low.
-   - In `phpinfo.php` (or running `php -i`), verify that `elastic_apm.async_backend_comm` displays as `true` (confirming that trace uploading is executing asynchronously in the background).
+   - Check that `USE_ZEND_ALLOC` is explicitly **disabled** (`USE_ZEND_ALLOC=0`) to prevent ionCube Loader memory corruption crashes.
+   - In `phpinfo.php` (or running `php -i`), verify that `elastic_apm.async_backend_comm` displays as `true` (confirming that trace uploading is executing asynchronously).
+   - Also verify that `elastic_apm.transaction_sample_rate` is set to `0.1` and `elastic_apm.stack_trace_limit` is set to `0` to keep CPU overhead minimized.
