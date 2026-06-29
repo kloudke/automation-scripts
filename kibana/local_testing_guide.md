@@ -138,37 +138,30 @@ zend_extension = "/path/to/ioncube_loader_xxxx_x.x.so"
 * **On macOS**:
   Download the Darwin tarball release of the APM Agent from the [Elastic APM PHP releases page](https://github.com/elastic/apm-agent-php/releases/tag/v1.17.0) (e.g. `apm-agent-php-1.17.0-darwin-x86_64.tar.gz`), unpack it, and configure the path in your `php.ini`.
 
-### 4. Append APM and OPcache Configuration to `php.ini`
-Locate your active `php.ini` (run `php --ini` to find it) and append the following configuration:
+### 4. Verify APM & OPcache inside the repository's `php.ini`
 
+Since you are running the project using the repository's own `php.ini` file (`php -c php.ini`), **you do not need to modify your system's global php.ini**. 
+
+The repository's [php.ini](file:///Users/gedeon/Dev/work/tcloud-whmcs/php.ini) is already pre-configured at the bottom with:
 ```ini
-; 1. Elastic APM Configuration
-extension=elastic_apm.so
-elastic_apm.enabled=true
-elastic_apm.server_url="http://localhost:8200"
-elastic_apm.service_name="local-whmcs-native"
 elastic_apm.async_backend_comm=true
 elastic_apm.transaction_sample_rate=0.5
 elastic_apm.span_stack_trace_min_duration=50ms
-
-; 2. OPcache Configuration (Optional, aligns with production environment)
-opcache.enable=1
-opcache.enable_cli=1
-opcache.memory_consumption=256
-opcache.interned_strings_buffer=16
-opcache.max_accelerated_files=20000
-opcache.max_wasted_percentage=5
-opcache.use_cwd=1
-; For local testing, keep validate_timestamps=1 so changes to local files are reflected immediately.
-; In production, this is set to 0 for maximum performance.
-opcache.validate_timestamps=1
 ```
 
-> [!IMPORTANT]
-> Make sure `elastic_apm.async_backend_comm=true` is present. This is the crucial setting we implemented to solve the request blocking and latency spikes!
+You only need to ensure the following are configured in it:
+1. **APM Server URL**: Update `elastic_apm.server_url` to point to your local compose stack:
+   ```ini
+   elastic_apm.server_url="http://localhost:8200"
+   ```
+2. **APM Service Name**: Update `elastic_apm.service_name` to your desired test identifier:
+   ```ini
+   elastic_apm.service_name="local-whmcs-native"
+   ```
+3. **Extensions**: Ensure `extension=elastic_apm.so` is appended to the bottom, and your `zend_extension="/path/to/ioncube..."` path is added at the top.
 
 > [!TIP]
-> In production/staging, `opcache.validate_timestamps` is set to `0`. If you use `0` locally, PHP will cache files permanently, meaning any manual edits to your code will not be visible until you restart your PHP server. Keep it set to `1` during local verification.
+> If you wish to enable OPcache locally to align with the production/staging performance profiles, ensure the OPcache directives are uncommented in the local `php.ini`. Keep `opcache.validate_timestamps=1` set during testing so code changes are visible immediately without process restarts.
 
 ---
 
