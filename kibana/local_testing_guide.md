@@ -218,9 +218,9 @@ spec:
 
 ---
 
-## Step 4: Deploy the WHMCS App Locally in K8s
+## Step 4: Deploy the WHMCS App and Service Locally in K8s
 
-Deploy the WHMCS application container pointing to the local APM server and the newly created local MySQL service:
+Deploy the WHMCS application container and expose it using a `NodePort` Service on port `30080`:
 
 ```yaml
 apiVersion: apps/v1
@@ -263,27 +263,50 @@ spec:
               value: "whmcs_db"
             - name: WHMCS_LICENCE
               value: "YOUR_DEV_LICENSE"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whmcs-local
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+  selector:
+    app: whmcs-local
 ```
 
 ---
 
 ## Step 5: Verify Telemetry and Optimization in Kibana
 
-1. **Access Kibana**:
+1. **Access WHMCS**:
+   You can access the WHMCS installation using one of two methods:
+   - **Method A (NodePort)**: Open `http://<KUBERNETES_NODE_IP>:30080/cloud/` in your browser.
+   - **Method B (Port Forward)**: If NodePort is not accessible from your machine, port-forward the service:
+     ```bash
+     kubectl port-forward svc/whmcs-local 8080:80
+     ```
+     Then open `http://localhost:8080/cloud/` in your browser.
+
+2. **Access Kibana**:
    Port-forward to Kibana locally:
    ```bash
    kubectl port-forward svc/kibana -n monitoring 5601:5601
    ```
    Open `http://localhost:5601` in your browser.
 
-2. **Generate Traffic**:
-   Trigger requests on the local WHMCS deployment (e.g. click around the client area or administration panels).
+3. **Generate Traffic**:
+   Trigger requests on the local WHMCS deployment (e.g. click around the client area or administration panels at the `/cloud/` path).
 
-3. **Check the APM Dashboard**:
+4. **Check the APM Dashboard**:
    - In Kibana, go to **Observability** > **APM** > **Services**.
    - You should see `local-whmcs` active in the service list.
    - Click on the service to verify that transactions, trace waterfall graphs, and SQL queries are logged.
 
-4. **Verify Memory Allocation and Asynchronous Offloading**:
+5. **Verify Memory Allocation and Asynchronous Offloading**:
    - Check that `USE_ZEND_ALLOC` is enabled (`USE_ZEND_ALLOC=1` by default) by accessing a simple `phpinfo.php` file inside the container, or verify that CPU utilization remains low.
    - In `phpinfo.php` (or running `php -i`), verify that `elastic_apm.async_backend_comm` displays as `true` (confirming that trace uploading is executing asynchronously in the background).
